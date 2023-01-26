@@ -30,7 +30,15 @@ export const Header = () => {
   //
   const [keyword, setKeyword] = useState('')
   const [isSearchFocus, setIsSearchFocus] = useState(false)
+  const searchRef = useRef<HTMLInputElement>(null)
   //
+  const goToSearchPage = () => {
+    if (keyword) {
+      navigate(`/search?q=${keyword}`)
+      setIsSearchFocus(false)
+      searchRef.current?.blur()
+    }
+  }
   //
   const initKeyword = () => {
     if (pathnameRef.current === '/search') {
@@ -111,6 +119,13 @@ export const Header = () => {
         "
         >
           <input
+            onClick={(e) => {
+              e.stopPropagation()
+              setIsSearchFocus(true)
+            }}
+            onKeyDown={(e) => (e.key === 'Enter' ? goToSearchPage() : '')}
+            onInput={(e) => setKeyword(e.currentTarget.value)}
+            value={keyword}
             type="text"
             className="bg-transparent outline-0 flex-1"
             placeholder="search..."
