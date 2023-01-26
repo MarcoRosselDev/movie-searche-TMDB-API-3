@@ -4,9 +4,9 @@ import { Container } from '../components/container'
 import { mergeClassName } from '../utils'
 
 const MENU_CLASS = `
-  px-3
-  py-1.5
+  p-1.5
   hover:bg-primary
+  rounded-md
 `
 
 const MENU_CLASS_ACTIVE = `
@@ -31,13 +31,13 @@ export const Header = () => {
 
   return (
     <div className="bg-header">
-      <Container className="flex justify-between">
+      <Container className="flex items-center justify-between">
         {/* brand and menu */}
         <div className="flex items-center gap-6">
-          <h1 className="text-2xl">
+          <h1 className="text-2xl font-semibold">
             <Link to={'/'}>My Movie App</Link>
           </h1>
-          <div className="flex items-center gap-1.5">
+          <div className="pt-1.5 flex items-center gap-1.5">
             <Link className={getMenuClass('/movies')} to={'/movies'}>
               Movies
             </Link>
