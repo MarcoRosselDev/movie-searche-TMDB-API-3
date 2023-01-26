@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Container } from '../components/container'
 import { mergeClassName } from '../utils'
+import { IoIosSearch } from 'react-icons/io'
 
 const MENU_CLASS = `
   p-1.5
@@ -30,14 +31,31 @@ export const Header = () => {
   }, [location.pathname])
 
   return (
-    <div className="bg-header">
-      <Container className="flex items-center justify-between">
-        {/* brand and menu */}
+    <div className="bg-header sticky top-0 z-[99]">
+      <Container className="flex items-center justify-between gap-3">
+        {/* brand & menu */}
         <div className="flex items-center gap-6">
+          {/* brand */}
           <h1 className="text-2xl font-semibold">
             <Link to={'/'}>My Movie App</Link>
           </h1>
-          <div className="pt-1.5 flex items-center gap-1.5">
+          {/*  menu */}
+          <div
+            className="
+            pt-1.5
+            flex 
+            items-center 
+            gap-1.5
+            mobile:fixed
+            mobile:bottom-0
+            mobile:left-0
+            mobile:right-0
+            mobile:justify-center
+            mobile:py-3
+            mobile:bg-header
+            mobile:gap-6
+            "
+          >
             <Link className={getMenuClass('/movies')} to={'/movies'}>
               Movies
             </Link>
@@ -45,6 +63,27 @@ export const Header = () => {
               TV
             </Link>
           </div>
+        </div>
+
+        {/* search */}
+        <div
+          className="
+          border-b-[1.5px] 
+          border-white
+          flex
+          items-center
+          p-1
+          flex-[0.5]
+          focus-within:border-primary
+          relative
+        "
+        >
+          <input
+            type="text"
+            className="bg-transparent outline-0 flex-1"
+            placeholder="search..."
+          />
+          <IoIosSearch size={18}></IoIosSearch>
         </div>
       </Container>
     </div>
