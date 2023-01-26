@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Container } from '../components/container'
+import { mergeClassName } from '../utils'
 
 const MENU_CLASS = `
   px-3
@@ -13,10 +14,20 @@ const MENU_CLASS_ACTIVE = `
 `
 
 export const Header = () => {
+  //
   const location = useLocation()
-  const [pathname, setPathname] = useState()
+  const [pathname, setPathname] = useState('')
+  //
+  const getMenuClass = (path: string) => {
+    if (path === pathname) {
+      return mergeClassName(MENU_CLASS, MENU_CLASS_ACTIVE)
+    }
+    return mergeClassName(MENU_CLASS, '')
+  }
 
-  useEffect(() => {}, [location.pathname])
+  useEffect(() => {
+    setPathname(location.pathname)
+  }, [location.pathname])
 
   return (
     <div className="bg-header">
@@ -27,8 +38,12 @@ export const Header = () => {
             <Link to={'/'}>My Movie App</Link>
           </h1>
           <div className="flex items-center gap-1.5">
-            <Link to={'/movies'}>Movies</Link>
-            <Link to={'/tv'}>TV</Link>
+            <Link className={getMenuClass('/movies')} to={'/movies'}>
+              Movies
+            </Link>
+            <Link className={getMenuClass('/tv')} to={'/tv'}>
+              TV
+            </Link>
           </div>
         </div>
       </Container>
