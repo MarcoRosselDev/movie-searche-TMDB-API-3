@@ -1,5 +1,10 @@
-import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom'
 import { Container } from '../components/container'
 import { mergeClassName } from '../utils'
 import { IoIosSearch } from 'react-icons/io'
@@ -17,7 +22,14 @@ const MENU_CLASS_ACTIVE = `
 export const Header = () => {
   //
   const location = useLocation()
+  const [params, _] = useSearchParams('')
+  const navigate = useNavigate()
+  //
   const [pathname, setPathname] = useState('')
+  const pathnameRef = useRef('')
+  //
+  const [keyword, setKeyword] = useState('')
+  const [isSearchFocus, setIsSearchFocus] = useState(false)
   //
   const getMenuClass = (path: string) => {
     if (path === pathname) {
@@ -28,6 +40,7 @@ export const Header = () => {
 
   useEffect(() => {
     setPathname(location.pathname)
+    pathnameRef.current = location.pathname
   }, [location.pathname])
 
   return (
