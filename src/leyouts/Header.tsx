@@ -31,6 +31,20 @@ export const Header = () => {
   const [keyword, setKeyword] = useState('')
   const [isSearchFocus, setIsSearchFocus] = useState(false)
   //
+  //
+  const initKeyword = () => {
+    if (pathnameRef.current === '/search') {
+      setKeyword(params.get('q') || '')
+    } else {
+      setKeyword('')
+    }
+  }
+  //
+  const onWindowClick = () => {
+    setIsSearchFocus(false)
+    initKeyword()
+  }
+  //
   const getMenuClass = (path: string) => {
     if (path === pathname) {
       return mergeClassName(MENU_CLASS, MENU_CLASS_ACTIVE)
@@ -41,7 +55,12 @@ export const Header = () => {
   useEffect(() => {
     setPathname(location.pathname)
     pathnameRef.current = location.pathname
+    initKeyword()
   }, [location.pathname])
+
+  useEffect(() => {
+    window.addEventListener('click', () => onWindowClick())
+  }, [])
 
   return (
     <div className="bg-header sticky top-0 z-[99]">
