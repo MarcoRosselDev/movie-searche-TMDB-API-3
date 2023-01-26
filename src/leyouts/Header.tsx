@@ -1,3 +1,9 @@
+import { Container } from '../components/container'
+
 export const Header = () => {
-  return <div>Header</div>
+  return (
+    <div>
+      <Container />
+    </div>
+  )
 }
