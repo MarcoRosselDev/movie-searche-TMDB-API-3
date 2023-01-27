@@ -9,6 +9,8 @@ interface Props {
 
 export const SearchResult = (props: Props) => {
   const [items, setItems] = useState<Film[]>([])
+
+  const [totalItem, setTotalItem] = useState(6)
   //
 
   const fetch = () => {
@@ -61,7 +63,7 @@ export const SearchResult = (props: Props) => {
           </div>
         </div>
       ))}
-      {items.length > 5 ? (
+      {totalItem > 5 ? (
         <button
           className="p-3 py-1.5 bg-primary w-full hover:text-body"
           onClick={() => props.goToSearchPage()}
