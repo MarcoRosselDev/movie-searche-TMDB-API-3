@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Film } from '../interfaces'
 import { Image } from './image'
 
@@ -19,13 +19,18 @@ export const SearchResult = (props: Props) => {
         title: 'lorem',
         description: '',
         coverPath: '',
-        genreIds: [],
+        genreIds: [1, 2, 3, 4, 5, 6],
         posterPath: '',
         seasons: [],
       })
     }
     setItems(arrs)
   }
+
+  useEffect(() => {
+    fetch()
+  }, [props.keyword])
+
   return (
     <div
       className="
@@ -40,10 +45,10 @@ export const SearchResult = (props: Props) => {
       {items.map((film, i) => (
         <div
           key={i}
-          className="flex items-start p-1.5 rounded-lg hover:bg-primary cursor-pointer"
+          className="flex items-start p-1.5 rounded-lg hover:bg-primary cursor-pointer m-1.5"
         >
           {/* image */}
-          <Image src="" className="h-[72px] w-[102px]"></Image>
+          <Image src="" className="h-[72px] w-[102px] rounded-md"></Image>
           {/* title and genres */}
           <div className="px-3">
             <p className="text-base">{film.title}</p>
