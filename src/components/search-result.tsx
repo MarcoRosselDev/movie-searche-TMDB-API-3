@@ -16,7 +16,8 @@ export const SearchResult = (props: Props) => {
     for (let i = 0; i < 5; i++) {
       arrs.push({
         id: i,
-        title: 'lorem',
+        title:
+          'Lorem ipsumdolo sit emet consectetur adipsisicing elit, quam, susciipit? pariatur non ipse alias at, iure, repellat',
         description: '',
         coverPath: '',
         genreIds: [1, 2, 3, 4, 5, 6],
@@ -51,8 +52,8 @@ export const SearchResult = (props: Props) => {
           <Image src="" className="h-[72px] w-[102px] rounded-md"></Image>
           {/* title and genres */}
           <div className="px-3">
-            <p className="text-base">{film.title}</p>
-            <ul className="flex flex-wrap gap-x-1.5 text-sm">
+            <p className="text-base truncate">{film.title}</p>
+            <ul className="flex flex-wrap gap-x-1.5 text-sm opacity-[0.7]">
               {film.genreIds.map((id, i) => (
                 <li key={i}>item {i}</li>
               ))}

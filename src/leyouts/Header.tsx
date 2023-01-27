@@ -69,7 +69,10 @@ export const Header = () => {
   }, [location.pathname])
 
   useEffect(() => {
-    window.addEventListener('click', () => onWindowClick())
+    window.addEventListener('click', onWindowClick)
+    return () => {
+      window.removeEventListener('click', onWindowClick)
+    }
   }, [])
 
   return (
