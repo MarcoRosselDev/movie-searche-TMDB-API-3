@@ -7,7 +7,7 @@ interface Props {
   goToSearchPage: Function
 }
 
-export const SearchResult = () => {
+export const SearchResult = (props: Props) => {
   const [items, setItems] = useState<Film[]>([])
   //
 

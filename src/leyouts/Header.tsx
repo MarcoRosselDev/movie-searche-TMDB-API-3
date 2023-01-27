@@ -8,6 +8,8 @@ import {
 import { Container } from '../components/container'
 import { mergeClassName } from '../utils'
 import { IoIosSearch } from 'react-icons/io'
+//
+import { SearchResult } from '../components/search-result'
 
 const MENU_CLASS = `
   p-1.5
@@ -131,6 +133,15 @@ export const Header = () => {
             placeholder="search..."
           />
           <IoIosSearch size={18}></IoIosSearch>
+          {/* tmp results */}
+          {isSearchFocus ? (
+            <SearchResult
+              keyword={keyword}
+              goToSearchPage={goToSearchPage}
+            ></SearchResult>
+          ) : (
+            ''
+          )}
         </div>
       </Container>
     </div>
