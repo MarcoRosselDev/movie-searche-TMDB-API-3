@@ -61,6 +61,16 @@ export const SearchResult = (props: Props) => {
           </div>
         </div>
       ))}
+      {items.length > 5 ? (
+        <button
+          className="p-3 py-1.5 bg-primary w-full hover:text-body"
+          onClick={() => props.goToSearchPage()}
+        >
+          More Results
+        </button>
+      ) : (
+        ''
+      )}
     </div>
   )
 }
