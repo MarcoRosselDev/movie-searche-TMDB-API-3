@@ -1,3 +1,11 @@
 export const Home = () => {
-  return <div>Home</div>
+  return (
+    <>
+      {/* trendings */}
+      {/* in theaters */}
+      {/* populars */}
+      {/* top rated tv */}
+      {/* to rated movies */}
+    </>
+  )
 }
