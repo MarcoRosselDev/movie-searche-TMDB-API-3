@@ -16,7 +16,7 @@ export const SearchResult = () => {
     for (let i = 0; i < 5; i++) {
       arrs.push({
         id: i,
-        title: '',
+        title: 'lorem',
         description: '',
         coverPath: '',
         genreIds: [],
@@ -38,10 +38,21 @@ export const SearchResult = () => {
     "
     >
       {items.map((film, i) => (
-        <div className="flex items-start p-1.5 rounded-lg hover:bg-primary cursor-pointer">
+        <div
+          key={i}
+          className="flex items-start p-1.5 rounded-lg hover:bg-primary cursor-pointer"
+        >
           {/* image */}
           <Image src="" className="h-[72px] w-[102px]"></Image>
           {/* title and genres */}
+          <div className="px-3">
+            <p className="text-base">{film.title}</p>
+            <ul className="flex flex-wrap gap-x-1.5 text-sm">
+              {film.genreIds.map((id, i) => (
+                <li key={i}>item {i}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       ))}
     </div>
