@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Film } from '../interfaces'
 
 interface Props {
   keyword: string
@@ -6,8 +7,24 @@ interface Props {
 }
 
 export const SearchResult = () => {
-  const [items, setItems] = useState('')
+  const [items, setItems] = useState<Film[]>([])
   //
+
+  const fetch = () => {
+    const arrs: Film[] = []
+    for (let i = 0; i < 5; i++) {
+      arrs.push({
+        id: i,
+        title: '',
+        description: '',
+        coverPath: '',
+        genreIds: [],
+        posterPath: '',
+        seasons: [],
+      })
+    }
+    setItems(arrs)
+  }
   return (
     <div
       className="
@@ -18,6 +35,13 @@ export const SearchResult = () => {
     rounded-md
     overflow-hidden
     "
-    ></div>
+    >
+      {items.map((film, i) => (
+        <div className="flex items-start p-1.5 rounded-lg hover:bg-primary cursor-pointer">
+          {/* image */}
+          {/* title and genres */}
+        </div>
+      ))}
+    </div>
   )
 }

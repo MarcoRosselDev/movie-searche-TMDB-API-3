@@ -14,6 +14,6 @@ export interface Film {
   description: string
   posterPath: string
   coverPath: string
-  genreIds: number
+  genreIds: number[]
   seasons: Season[]
 }
