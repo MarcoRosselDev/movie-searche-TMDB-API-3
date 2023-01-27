@@ -24,11 +24,13 @@ const MENU_CLASS_ACTIVE = `
 export const Header = () => {
   //
   const location = useLocation()
-  const [params, _] = useSearchParams('')
+  const [params, _] = useSearchParams()
   const navigate = useNavigate()
   //
   const [pathname, setPathname] = useState('')
   const pathnameRef = useRef('')
+  const defaultKeyword = useRef('')
+
   //
   const [keyword, setKeyword] = useState('')
   const [isSearchFocus, setIsSearchFocus] = useState(false)
@@ -44,7 +46,7 @@ export const Header = () => {
   //
   const initKeyword = () => {
     if (pathnameRef.current === '/search') {
-      setKeyword(params.get('q') || '')
+      setKeyword(defaultKeyword.current)
     } else {
       setKeyword('')
     }
@@ -65,6 +67,7 @@ export const Header = () => {
   useEffect(() => {
     setPathname(location.pathname)
     pathnameRef.current = location.pathname
+    defaultKeyword.current = params.get('q') || ''
     initKeyword()
   }, [location.pathname])
 
