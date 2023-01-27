@@ -4,6 +4,6 @@ interface Props {
   type: MediaType | 'search'
 }
 
-export const Catalog = () => {
-  return <div>Catalog</div>
+export const Catalog = (props: Props) => {
+  return <div>{props.type}</div>
 }
