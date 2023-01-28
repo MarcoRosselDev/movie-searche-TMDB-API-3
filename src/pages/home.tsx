@@ -1,7 +1,9 @@
 import { Section } from '../components/section'
 import Slider from 'react-slick'
+// import { Slider } from '../components/slider/slider'
 import { useEffect, useState } from 'react'
 import { Film } from '../interfaces'
+import { TrendingsHero } from '../components/trending-hero'
 
 export const Home = () => {
   //
@@ -31,8 +33,12 @@ export const Home = () => {
   return (
     <>
       {/* trendings */}
-      <Section>
-        <Slider></Slider>
+      <Section className="py-0">
+        <Slider autoplay={true} slidesToShow={1} slidesToScroll={1}>
+          {trendings.map((film, i) => (
+            <TrendingsHero film={film} key={i}></TrendingsHero>
+          ))}
+        </Slider>
       </Section>
       {/* in theaters */}
       {/* populars */}
