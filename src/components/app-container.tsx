@@ -7,13 +7,15 @@ import { Footer } from '../leyouts/Footer'
 
 export const AppContainer = () => {
   return (
-    <BrowserRouter>
-      {/* header */}
-      <Header />
-      {/* body */}
-      <Body />
-      {/* footer */}
-      <Footer />
-    </BrowserRouter>
+    <div className="pb-[64px]">
+      <BrowserRouter>
+        {/* header */}
+        <Header />
+        {/* body */}
+        <Body />
+        {/* footer */}
+        <Footer />
+      </BrowserRouter>
+    </div>
   )
 }
