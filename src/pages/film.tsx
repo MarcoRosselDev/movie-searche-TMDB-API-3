@@ -14,11 +14,14 @@ export const Film = (props: Props) => {
   return (
     <>
       {/* background */}
-      <div className="h-[300px] absolute  left-0  right-0 top-0">
+      <div className="h-[300px] left-0 right-0 top-0 relative">
         <Image src=""></Image>
       </div>
-      <Section className="-mt-[150px] flex items-start relative z-10">
-        <Image src="" className="w-[92px] m-w-[92px] h-[192px]  "></Image>
+      <Section className="-mt-[150px] flex items-center relative z-10 mobile:block">
+        <Image
+          src=""
+          className="w-[200px] min-w-[200px] h-[300px] mobile:mx-auto"
+        ></Image>
       </Section>
     </>
   )

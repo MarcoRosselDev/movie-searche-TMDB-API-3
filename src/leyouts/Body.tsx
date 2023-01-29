@@ -12,8 +12,8 @@ export const Body = () => {
       <Route path="/tv" element={<Catalog type="tv" />}></Route>
       <Route path="/search" element={<Catalog type="search" />}></Route>
 
-      <Route path="/movie:id" element={<Film mediaType="movie" />}></Route>
-      <Route path="/tv:id" element={<Film mediaType="tv" />}></Route>
+      <Route path="/movie/:id" element={<Film mediaType="movie" />}></Route>
+      <Route path="/tv/:id" element={<Film mediaType="tv" />}></Route>
     </Routes>
   )
 }
