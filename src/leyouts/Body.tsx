@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 
 import { Catalog } from '../pages/catalog'
+import { Film } from '../pages/film'
 import { Home } from '../pages/home'
 
 export const Body = () => {
@@ -10,6 +11,8 @@ export const Body = () => {
       <Route path="/movies" element={<Catalog type="movie" />}></Route>
       <Route path="/tv" element={<Catalog type="tv" />}></Route>
       <Route path="/search" element={<Catalog type="search" />}></Route>
+
+      <Route path="/tv:id" element={<Film mediaType="tv" />}></Route>
     </Routes>
   )
 }
