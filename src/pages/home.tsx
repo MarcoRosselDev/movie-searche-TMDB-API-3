@@ -3,6 +3,7 @@ import { Slider } from '../components/slider/slider'
 import { useEffect, useState } from 'react'
 import { Film } from '../interfaces'
 import { TrendingsHero } from '../components/trending-hero'
+import { Card } from '../components/card'
 
 export const Home = () => {
   //
@@ -54,8 +55,8 @@ export const Home = () => {
           slidesToShow={5}
           slidesToScroll={5}
         >
-          {trendings.map((film, i) => (
-            <TrendingsHero film={film} key={i}></TrendingsHero>
+          {inTheaters.map((film, i) => (
+            <Card film={film} key={i}></Card>
           ))}
         </Slider>
       </Section>
