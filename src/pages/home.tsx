@@ -37,7 +37,7 @@ export const Home = () => {
       {/* trendings */}
       <Section className="py-0">
         <Slider
-          className="click-hero"
+          className="slick-hero"
           autoplay={true}
           slidesToShow={1}
           slidesToScroll={1}
@@ -50,6 +50,7 @@ export const Home = () => {
       {/* in theaters */}
       <Section title="In Theaters">
         <Slider
+          isMovieCard={true}
           className="click-hero"
           autoplay={true}
           slidesToShow={5}
