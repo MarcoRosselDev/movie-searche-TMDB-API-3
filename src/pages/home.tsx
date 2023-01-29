@@ -1,6 +1,6 @@
 import { Section } from '../components/section'
-import Slider from 'react-slick'
-// import { Slider } from '../components/slider/slider'
+// import Slider from 'react-slick'
+import { Slider } from '../components/slider/slider'
 import { useEffect, useState } from 'react'
 import { Film } from '../interfaces'
 import { TrendingsHero } from '../components/trending-hero'
