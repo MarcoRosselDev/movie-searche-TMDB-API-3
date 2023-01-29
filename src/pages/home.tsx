@@ -1,5 +1,4 @@
 import { Section } from '../components/section'
-// import Slider from 'react-slick'
 import { Slider } from '../components/slider/slider'
 import { useEffect, useState } from 'react'
 import { Film } from '../interfaces'
@@ -8,6 +7,7 @@ import { TrendingsHero } from '../components/trending-hero'
 export const Home = () => {
   //
   const [trendings, setTrendings] = useState<Film[]>([])
+  const [inTheaters, setInTheaters] = useState<Film[]>([])
 
   const fetchTrending = () => {
     const arrs: Film[] = []
@@ -24,6 +24,7 @@ export const Home = () => {
       })
     }
     setTrendings(arrs)
+    setInTheaters(arrs)
   }
 
   useEffect(() => {
@@ -34,13 +35,30 @@ export const Home = () => {
     <>
       {/* trendings */}
       <Section className="py-0">
-        <Slider autoplay={true} slidesToShow={1} slidesToScroll={1}>
+        <Slider
+          className="click-hero"
+          autoplay={true}
+          slidesToShow={1}
+          slidesToScroll={1}
+        >
           {trendings.map((film, i) => (
             <TrendingsHero film={film} key={i}></TrendingsHero>
           ))}
         </Slider>
       </Section>
       {/* in theaters */}
+      <Section title="In Theaters">
+        <Slider
+          className="click-hero"
+          autoplay={true}
+          slidesToShow={5}
+          slidesToScroll={5}
+        >
+          {trendings.map((film, i) => (
+            <TrendingsHero film={film} key={i}></TrendingsHero>
+          ))}
+        </Slider>
+      </Section>
       {/* populars */}
       {/* top rated tv */}
       {/* to rated movies */}

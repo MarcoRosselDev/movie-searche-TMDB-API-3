@@ -13,6 +13,7 @@ export const TrendingsHero = (props: Props) => {
       <div className="absolute left-0 top-0 right-0 bottom-0">
         <div className="overlay-slick-hero"></div>
         <Image src=""></Image>
+        <div className="overlay-film-cover"></div>
       </div>
       {/* text */}
       <div className="flex flex-col gap-3 items-start relative z-10 mx-[55px] max-w-[50%] mobile:max-w-[100%]">
