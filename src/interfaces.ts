@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { MediaType } from './types'
 
 export interface CustomComponentProps {
   children?: ReactNode
@@ -10,6 +11,7 @@ export interface Season {
 }
 export interface Film {
   id: number
+  mediaType: MediaType
   title: string
   description: string
   posterPath: string

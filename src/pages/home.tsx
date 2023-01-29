@@ -15,6 +15,7 @@ export const Home = () => {
     for (let i = 0; i < 5; i++) {
       arrs.push({
         id: i,
+        mediaType: 'tv',
         title: 'Lorem ipsumdolo sit emet consectetur adipsisicing elit,',
         description:
           'Lorem ipsumdolo sit emet consectetur adipsisicing elit, quam, susciipit? pariatur non ipse alias at, iure, repellat',

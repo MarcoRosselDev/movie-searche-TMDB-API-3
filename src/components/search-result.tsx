@@ -18,6 +18,7 @@ export const SearchResult = (props: Props) => {
     for (let i = 0; i < 5; i++) {
       arrs.push({
         id: i,
+        mediaType: 'tv',
         title:
           'Lorem ipsumdolo sit emet consectetur adipsisicing elit, quam, susciipit? pariatur non ipse alias at, iure, repellat',
         description: '',
