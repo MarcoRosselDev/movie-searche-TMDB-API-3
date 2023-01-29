@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { IoIosSearch } from 'react-icons/io'
 import {
   Link,
   useLocation,
@@ -7,7 +8,6 @@ import {
 } from 'react-router-dom'
 import { Container } from '../components/container'
 import { mergeClassName } from '../utils'
-import { IoIosSearch } from 'react-icons/io'
 //
 import { SearchResult } from '../components/search-result'
 
@@ -62,6 +62,7 @@ export const Header = () => {
     if (path === pathname) {
       return mergeClassName(MENU_CLASS, MENU_CLASS_ACTIVE)
     }
+
     return mergeClassName(MENU_CLASS, '')
   }
 
@@ -74,6 +75,7 @@ export const Header = () => {
 
   useEffect(() => {
     window.addEventListener('click', onWindowClick)
+
     return () => {
       window.removeEventListener('click', onWindowClick)
     }
@@ -86,7 +88,7 @@ export const Header = () => {
         <div className="flex items-center gap-6">
           {/* brand */}
           <h1 className="text-2xl font-semibold">
-            <Link to={'/'}>My Movie App</Link>
+            <Link to={'/'}>Movielia</Link>
           </h1>
           {/*  menu */}
           <div
@@ -141,7 +143,7 @@ export const Header = () => {
           />
           <IoIosSearch size={18}></IoIosSearch>
           {/* tmp results */}
-          {isSearchFocus ? (
+          {isSearchFocus && keyword ? (
             <SearchResult
               keyword={keyword}
               goToSearchPage={goToSearchPage}
