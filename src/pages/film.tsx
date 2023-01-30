@@ -5,6 +5,7 @@ import { Section } from '../components/section'
 import { MediaType } from '../types'
 import { Cast, Trailer, Film as FilmInterface } from '../interfaces'
 import { Card } from '../components/card'
+import { Slider } from '../components/slider/slider'
 
 interface Props {
   mediaType: MediaType
@@ -23,11 +24,17 @@ export const Film = (props: Props) => {
     genreIds: [1, 2, 3, 4],
     mediaType: props.mediaType,
     posterPath: '',
-    seasons: [],
+    seasons: [
+      {
+        id: 1,
+        seasonNumber: 1,
+      },
+    ],
   })
 
   const [casts, setCasts] = useState<Cast[]>([])
   const [trailers, setTrailers] = useState<Trailer[]>([])
+  // const [season, setSeason] = useState<Trailer[]>([])
 
   const fetch = () => {
     const arrs: any[] = []
@@ -98,6 +105,17 @@ export const Film = (props: Props) => {
         </div>
       </Section>
       {/* seasons */}
+      <Section title="Seasons">
+        <Slider slidesToShow={2} slidesToScroll={2}>
+          {film.seasons.map((season, i) => (
+            <Card
+              title={`Season ${season.seasonNumber}`}
+              imageSrc=""
+              key={i}
+            ></Card>
+          ))}
+        </Slider>
+      </Section>
       {/* recommendations */}
     </>
   )
