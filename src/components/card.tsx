@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router-dom'
-import { Film } from '../interfaces'
 import { Image } from './image'
 
 interface Props {
@@ -9,15 +7,12 @@ interface Props {
 }
 
 export const Card = (props: Props) => {
-  //
-  const navigate = useNavigate()
-
   return (
     <div
       onClick={() => (props.onClick ? props.onClick() : '')}
       className="mx-3 my-1.5 cursor-pointer"
     >
-      <Image src="" className="h-[200px]"></Image>
+      <Image src="" className="min-h-[200px] h-[200px]"></Image>
       <p className="py-1.5 line-clamp-2">{props.title}</p>
     </div>
   )

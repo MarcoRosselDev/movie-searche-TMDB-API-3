@@ -73,10 +73,14 @@ export const Film = (props: Props) => {
       </Section>
       {/* cast */}
       <Section title="Casts">
-        <div className="h-32 scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100">
-          {casts.map((cast, i) => (
-            <Card imageSrc="" title="lorem ipsum" key={i}></Card>
-          ))}
+        <div className="scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100">
+          <div className="flex items-center gap-3">
+            {casts.map((cast, i) => (
+              <div className="flex-shrink-0 max-w-[200px] my-3">
+                <Card imageSrc="" title="lorem ipsum" key={i}></Card>
+              </div>
+            ))}
+          </div>
         </div>
       </Section>
       {/* trailers */}
