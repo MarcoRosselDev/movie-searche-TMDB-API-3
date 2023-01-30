@@ -68,18 +68,23 @@ export const Season = () => {
       {/* episodes */}
       <Section title="Episodes">
         {episodes?.map((episodes, i) => (
-          <div className="">
-            <Image src=""></Image>
-            <div className="px-1">
+          <div
+            className="my-6 flex items-stretch gap-4 rounded-md overflow-hidden cursor-pointer hover:bg-primary px-3 py-1.5 mobile:block"
+            key={i}
+          >
+            <Image src="" className="min-w-[300px] w-[300px] h-[150px]"></Image>
+            <div className="overflow-hidden flex flex-col gap-3 mobile:py-3">
               <p className="text-lg truncate">
                 quo quasi? Quaerat, voluptas iusto. Consectetur deserunt omnis
                 accusamus in? Voluptatibus iste animi, eveniet perspiciatis
                 neque.
               </p>
-              <p className="opacity-[0.9] line-clamp-3">
-                quo quasi? Quaerat, voluptas iusto. Consectetur deserunt omnis
-                accusamus in? Voluptatibus iste animi, eveniet perspiciatis
-                neque.
+              <p className="opacity-[0.9] line-clamp-5">
+                <div className="mt-auto pt-3 text-right">
+                  quo quasi? Quaerat, voluptas iusto. Consectetur deserunt omnis
+                  accusamus in? Voluptatibus iste animi, eveniet perspiciatis
+                  neque.
+                </div>
               </p>
             </div>
           </div>
