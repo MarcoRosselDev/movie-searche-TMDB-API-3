@@ -78,7 +78,7 @@ export const Film = (props: Props) => {
         <div className="scrollbar scrollbar-thumb-primary scrollbar-track-header">
           <div className="flex items-center gap-3">
             {casts.map((cast, i) => (
-              <div className="flex-shrink-0 max-w-[200px] my-3">
+              <div className="flex-shrink-0 w-[200px] mb-6" key={i}>
                 <Card imageSrc="" title="lorem ipsum" key={i}></Card>
               </div>
             ))}
@@ -88,9 +88,9 @@ export const Film = (props: Props) => {
       {/* trailers */}
       <Section title="Trailers">
         <div className="scrollbar scrollbar-thumb-primary scrollbar-track-header">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 h-[300px]">
             {casts.map((cast, i) => (
-              <div className="flex-shrink-0 max-w-[200px] my-3">
+              <div className="flex-shrink-0 w-[300px] my-3">
                 <Card imageSrc="" title="lorem ipsum" key={i}></Card>
               </div>
             ))}
