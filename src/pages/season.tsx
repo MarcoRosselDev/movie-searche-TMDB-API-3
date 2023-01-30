@@ -60,8 +60,30 @@ export const Season = () => {
         ></Image>
         <div className="px-3 flex flex-col items-start gap-3">
           <p className="text-xl line-clamp-1">{film.title}</p>
-          <p className="line-clamp-3 opacity-[0.9]">Season 1 | 12 episodes</p>
+          <p className="line-clamp-3 opacity-[0.9]">
+            Season 1 | {episodes?.length} episodes
+          </p>
         </div>
+      </Section>
+      {/* episodes */}
+      <Section title="Episodes">
+        {episodes?.map((episodes, i) => (
+          <div className="">
+            <Image src=""></Image>
+            <div className="px-1">
+              <p className="text-lg truncate">
+                quo quasi? Quaerat, voluptas iusto. Consectetur deserunt omnis
+                accusamus in? Voluptatibus iste animi, eveniet perspiciatis
+                neque.
+              </p>
+              <p className="opacity-[0.9] line-clamp-3">
+                quo quasi? Quaerat, voluptas iusto. Consectetur deserunt omnis
+                accusamus in? Voluptatibus iste animi, eveniet perspiciatis
+                neque.
+              </p>
+            </div>
+          </div>
+        ))}
       </Section>
     </>
   )
