@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Image } from '../components/image'
 import { Section } from '../components/section'
 import { Film } from '../interfaces'
@@ -29,6 +29,23 @@ export const Season = () => {
       },
     ],
   })
+
+  //
+  const [episodes, setEpisodes] = useState<any[]>()
+  //
+  const fetch = () => {
+    const arrs: any[] = []
+    for (let i = 0; i < 12; i++) {
+      arrs.push({})
+    }
+
+    setEpisodes(arrs)
+  }
+  //
+  useEffect(() => {
+    fetch()
+  }, [])
+
   return (
     <>
       {/* background */}
@@ -43,9 +60,7 @@ export const Season = () => {
         ></Image>
         <div className="px-3 flex flex-col items-start gap-3">
           <p className="text-xl line-clamp-1">{film.title}</p>
-          <p className="line-clamp-3 opacity-[0.9]">
-            Season {film.description}
-          </p>
+          <p className="line-clamp-3 opacity-[0.9]">Season 1 | 12 episodes</p>
         </div>
       </Section>
     </>
