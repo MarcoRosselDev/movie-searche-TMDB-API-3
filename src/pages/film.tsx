@@ -43,6 +43,7 @@ export const Film = (props: Props) => {
   const [casts, setCasts] = useState<Cast[]>([])
   const [trailers, setTrailers] = useState<Trailer[]>([])
   // const [season, setSeason] = useState<Trailer[]>([])
+  const [recommendations, setRecommendations] = useState<FilmInterface[]>([])
 
   const fetch = () => {
     const arrs: any[] = []
@@ -53,6 +54,7 @@ export const Film = (props: Props) => {
 
     setCasts(arrs)
     setTrailers(arrs)
+    setRecommendations(arrs)
   }
 
   useEffect(() => {
@@ -114,7 +116,7 @@ export const Film = (props: Props) => {
       </Section>
       {/* seasons */}
       <Section title="Seasons">
-        <Slider slidesToShow={2} slidesToScroll={2}>
+        <Slider slidesToShow={2} slidesToScroll={2} swipe={false}>
           {film.seasons.map((season, i) => (
             <Card
               title={`Season ${season.seasonNumber}`}
@@ -125,6 +127,13 @@ export const Film = (props: Props) => {
         </Slider>
       </Section>
       {/* recommendations */}
+      <Section title="Recommendations">
+        <Slider isMovieCard={true} autoplay={true}>
+          {recommendations.map((season, i) => (
+            <Card title={film.title} imageSrc="" key={i}></Card>
+          ))}
+        </Slider>
+      </Section>
     </>
   )
 }
