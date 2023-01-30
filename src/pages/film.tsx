@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Image } from '../components/image'
 import { Section } from '../components/section'
 import { MediaType } from '../types'
-import { Film as FilmInterface } from '../interfaces'
+import { Cast, Film as FilmInterface } from '../interfaces'
 
 interface Props {
   mediaType: MediaType
@@ -25,6 +25,22 @@ export const Film = (props: Props) => {
     seasons: [],
   })
 
+  const [casts, setCasts] = useState<Cast[]>([])
+
+  const fetch = () => {
+    const arrs: any[] = []
+
+    for (let i = 0; i < 20; i++) {
+      arrs.push({})
+    }
+
+    setCasts(arrs)
+  }
+
+  useEffect(() => {
+    fetch()
+  }, [])
+
   return (
     <>
       {/* background */}
@@ -45,7 +61,6 @@ export const Film = (props: Props) => {
                 className="px-3 py-1.5 border-primary rounded-lg text-sm "
                 key={i}
               >
-                {' '}
                 item {i}
               </li>
             ))}
