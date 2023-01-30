@@ -29,6 +29,14 @@ export const Film = (props: Props) => {
         id: 1,
         seasonNumber: 1,
       },
+      {
+        id: 2,
+        seasonNumber: 2,
+      },
+      {
+        id: 3,
+        seasonNumber: 3,
+      },
     ],
   })
 
