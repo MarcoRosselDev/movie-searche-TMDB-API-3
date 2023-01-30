@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Image } from '../components/image'
 import { Film } from '../interfaces'
 
 export const Episodes = () => {
@@ -27,5 +28,22 @@ export const Episodes = () => {
       },
     ],
   })
-  return <div>episodes</div>
+  return (
+    <>
+      {/* background */}
+      <div className="h-[300px] left-0 right-0 top-0 relative">
+        <div className="overlay-film-cover"></div>
+        <Image
+          src=""
+          className="w-[200px] min-w-[200px] h-[300px] mobile:mx-auto"
+        ></Image>
+        <div className="px-3 flex flex-col items-start gap-3">
+          <p className="text-xl line-clamp-1">{film.title}</p>
+          <p className="line-clamp-3 opacity-[0.9]">
+            Season {film.description}
+          </p>
+        </div>
+      </div>
+    </>
+  )
 }
