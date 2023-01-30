@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { Image } from '../components/image'
+import { Section } from '../components/section'
 import { Film } from '../interfaces'
 
-export const Episodes = () => {
+export const Season = () => {
   //
   const [film, setFilm] = useState<Film>({
     id: 0,
@@ -31,8 +32,11 @@ export const Episodes = () => {
   return (
     <>
       {/* background */}
-      <div className="h-[300px] left-0 right-0 top-0 relative">
+      <div className="h-[150px] left-0 right-0 top-0 relative">
         <div className="overlay-film-cover"></div>
+      </div>
+      {/* poster and text */}
+      <Section className="-mt-[75px] flex items-center relative z-10 mobile:block">
         <Image
           src=""
           className="w-[200px] min-w-[200px] h-[300px] mobile:mx-auto"
@@ -43,7 +47,7 @@ export const Episodes = () => {
             Season {film.description}
           </p>
         </div>
-      </div>
+      </Section>
     </>
   )
 }

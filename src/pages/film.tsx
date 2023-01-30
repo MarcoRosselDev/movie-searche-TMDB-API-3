@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Image } from '../components/image'
 import { Section } from '../components/section'
 import { MediaType } from '../types'
@@ -13,6 +13,7 @@ interface Props {
 
 export const Film = (props: Props) => {
   //
+  const navigate = useNavigate()
   const { params } = useParams()
   //
   const [film, setFilm] = useState<FilmInterface>({
@@ -119,6 +120,9 @@ export const Film = (props: Props) => {
         <Slider slidesToShow={2} slidesToScroll={2} swipe={false}>
           {film.seasons.map((season, i) => (
             <Card
+              onClick={() =>
+                navigate(`/tv/${film.id}/season/${season.seasonNumber}`)
+              }
               title={`Season ${season.seasonNumber}`}
               imageSrc=""
               key={i}

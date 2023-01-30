@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 
 import { Catalog } from '../pages/catalog'
+import { Season } from '../pages/season'
 import { Film } from '../pages/film'
 import { Home } from '../pages/home'
 
@@ -14,6 +15,7 @@ export const Body = () => {
 
       <Route path="/movie/:id" element={<Film mediaType="movie" />}></Route>
       <Route path="/tv/:id" element={<Film mediaType="tv" />}></Route>
+      <Route path="/tv/:id/season/:seasonNumber" element={<Season />}></Route>
     </Routes>
   )
 }
