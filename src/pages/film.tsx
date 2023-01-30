@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Image } from '../components/image'
 import { Section } from '../components/section'
 import { MediaType } from '../types'
-import { Cast, Film as FilmInterface } from '../interfaces'
+import { Cast, Trailer, Film as FilmInterface } from '../interfaces'
 import { Card } from '../components/card'
 
 interface Props {
@@ -27,6 +27,7 @@ export const Film = (props: Props) => {
   })
 
   const [casts, setCasts] = useState<Cast[]>([])
+  const [trailers, setTrailers] = useState<Trailer[]>([])
 
   const fetch = () => {
     const arrs: any[] = []
@@ -36,6 +37,7 @@ export const Film = (props: Props) => {
     }
 
     setCasts(arrs)
+    setTrailers(arrs)
   }
 
   useEffect(() => {
@@ -73,7 +75,7 @@ export const Film = (props: Props) => {
       </Section>
       {/* cast */}
       <Section title="Casts">
-        <div className="scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100">
+        <div className="scrollbar scrollbar-thumb-primary scrollbar-track-header">
           <div className="flex items-center gap-3">
             {casts.map((cast, i) => (
               <div className="flex-shrink-0 max-w-[200px] my-3">
@@ -84,6 +86,17 @@ export const Film = (props: Props) => {
         </div>
       </Section>
       {/* trailers */}
+      <Section title="Trailers">
+        <div className="scrollbar scrollbar-thumb-primary scrollbar-track-header">
+          <div className="flex items-center gap-3">
+            {casts.map((cast, i) => (
+              <div className="flex-shrink-0 max-w-[200px] my-3">
+                <Card imageSrc="" title="lorem ipsum" key={i}></Card>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
       {/* seasons */}
       {/* recommendations */}
     </>
