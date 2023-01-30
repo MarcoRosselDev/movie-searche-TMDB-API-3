@@ -4,6 +4,7 @@ import { Image } from '../components/image'
 import { Section } from '../components/section'
 import { MediaType } from '../types'
 import { Cast, Film as FilmInterface } from '../interfaces'
+import { Card } from '../components/card'
 
 interface Props {
   mediaType: MediaType
@@ -71,6 +72,13 @@ export const Film = (props: Props) => {
         </div>
       </Section>
       {/* cast */}
+      <Section title="Casts">
+        <div className="h-32 scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100">
+          {casts.map((cast, i) => (
+            <Card imageSrc="" title="lorem ipsum" key={i}></Card>
+          ))}
+        </div>
+      </Section>
       {/* trailers */}
       {/* seasons */}
       {/* recommendations */}

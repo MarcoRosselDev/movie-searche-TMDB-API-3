@@ -58,7 +58,7 @@ export const Home = () => {
           slidesToScroll={5}
         >
           {inTheaters.map((film, i) => (
-            <Card film={film} key={i}></Card>
+            <Card title={film.title} imageSrc="" key={i}></Card>
           ))}
         </Slider>
       </Section>
