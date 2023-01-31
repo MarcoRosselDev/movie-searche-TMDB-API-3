@@ -1,11 +1,11 @@
 import './slider.css'
 
-import Slick, { Settings } from 'react-slick'
 import { ReactNode, useState } from 'react'
+import Slick, { Settings } from 'react-slick'
 
-interface Props extends Settings {
+interface Props extends Omit<Settings, 'children'> {
   isMovieCard?: boolean
-  isSeasonsCard?: boolean
+  isSeasonCard?: boolean
   children?: (onSwipe: boolean) => ReactNode
 }
 
