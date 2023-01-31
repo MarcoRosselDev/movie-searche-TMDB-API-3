@@ -6,6 +6,7 @@ import { TrendingsHero } from '../components/trending-hero'
 import { Card } from '../components/card'
 import { useNavigate } from 'react-router-dom'
 import { getTrendings } from '../api/tmdb-api'
+import { isFilm } from '../utils'
 // import { Film } from './film'
 
 export const Home = () => {
@@ -33,9 +34,7 @@ export const Home = () => {
           film = tvs[i - 1]
         }
       }
-      if (isFilm(film)) {
-        arrs.push(film)
-      }
+      if (isFilm(film)) arrs.push(film)
     }
     setTrendings(arrs)
   }

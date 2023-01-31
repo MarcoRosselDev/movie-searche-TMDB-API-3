@@ -2,6 +2,7 @@ import { Film } from '../interfaces'
 import { Image } from './image'
 import { MdPlayCircleOutline } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
+import { tmdbImageSrc } from '../utils'
 
 interface Props {
   film: Film
@@ -20,7 +21,7 @@ export const TrendingsHero = (props: Props) => {
       {/* bg image */}
       <div className="absolute left-0 top-0 right-0 bottom-0">
         <div className="overlay-slick-hero"></div>
-        <Image src=""></Image>
+        <Image src={tmdbImageSrc(props.film.coverPath)}></Image>
         <div className="overlay-film-cover"></div>
       </div>
       {/* text */}
