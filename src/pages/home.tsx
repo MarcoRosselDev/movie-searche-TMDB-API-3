@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react'
 import { Film } from '../interfaces'
 import { TrendingsHero } from '../components/trending-hero'
 import { Card } from '../components/card'
+import { useNavigate } from 'react-router-dom'
 
 export const Home = () => {
   //
+  const navigate = useNavigate()
   const [trendings, setTrendings] = useState<Film[]>([])
   const [inTheaters, setInTheaters] = useState<Film[]>([])
 
@@ -43,9 +45,17 @@ export const Home = () => {
           slidesToShow={1}
           slidesToScroll={1}
         >
-          {trendings.map((film, i) => (
-            <TrendingsHero film={film} key={i}></TrendingsHero>
-          ))}
+          {(onSwipe) =>
+            trendings.map((film, i) => (
+              <TrendingsHero
+                onClick={() =>
+                  !onSwipe ? navigate(`/${film.mediaType}/${film.id}`) : ''
+                }
+                film={film}
+                key={i}
+              ></TrendingsHero>
+            ))
+          }
         </Slider>
       </Section>
       {/* in theaters */}
@@ -57,9 +67,11 @@ export const Home = () => {
           slidesToShow={5}
           slidesToScroll={5}
         >
-          {inTheaters.map((film, i) => (
-            <Card title={film.title} imageSrc="" key={i}></Card>
-          ))}
+          {(_) =>
+            inTheaters.map((film, i) => (
+              <Card title={film.title} imageSrc="" key={i}></Card>
+            ))
+          }
         </Slider>
       </Section>
       {/* populars */}
