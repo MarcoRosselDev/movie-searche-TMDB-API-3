@@ -31,3 +31,19 @@ export const getTrendings = async (mediaType: MediaType): Promise<Film[]> => {
   }
   return []
 }
+
+export const getTheaser = async (): Promise<Film[]> => {
+  try {
+    const { data } = await axiosClient.get<
+      any,
+      AxiosResponse<{
+        results: unknown[]
+      }>
+    >(`/movie/now_playing`)
+
+    return data.results.map((val) => formatResult('movie', val))
+  } catch (error) {
+    console.log(error)
+  }
+  return []
+}

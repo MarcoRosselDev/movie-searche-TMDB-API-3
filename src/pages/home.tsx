@@ -5,14 +5,42 @@ import { Film } from '../interfaces'
 import { TrendingsHero } from '../components/trending-hero'
 import { Card } from '../components/card'
 import { useNavigate } from 'react-router-dom'
+import { getTrendings } from '../api/tmdb-api'
+// import { Film } from './film'
 
 export const Home = () => {
   //
   const navigate = useNavigate()
+
   const [trendings, setTrendings] = useState<Film[]>([])
   const [inTheaters, setInTheaters] = useState<Film[]>([])
 
-  const fetchTrending = () => {
+  const fetchTrending = async () => {
+    const movies = await getTrendings('movie')
+    const tvs = await getTrendings('tv')
+
+    const arrs: Film[] = []
+
+    for (let i = 0; i < 6; i++) {
+      let film: unknown
+
+      if (i % 2 == 1) {
+        if (tvs[i - 1]) {
+          film = tvs[i - 1]
+        }
+      } else {
+        if (movies[i - 1]) {
+          film = tvs[i - 1]
+        }
+      }
+      if (isFilm(film)) {
+        arrs.push(film)
+      }
+    }
+    setTrendings(arrs)
+  }
+
+  const fetch = () => {
     const arrs: Film[] = []
     for (let i = 0; i < 5; i++) {
       arrs.push({
@@ -33,6 +61,7 @@ export const Home = () => {
 
   useEffect(() => {
     fetchTrending()
+    fetch()
   }, [])
 
   return (
