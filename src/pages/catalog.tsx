@@ -60,10 +60,14 @@ export const Catalog = (props: Props) => {
       <Section
         className="-mt-[150px] flex items-center relative z-10 mobile:block"
         title="PAGE TITLE"
-      >
-        <div className="grid grid-cols-4">
+      ></Section>
+      {/* Films */}
+      <Section>
+        <div className="grid lg:grid-cols-5 sm:grid-cols-4 mobile:grid-cols-3 relative z-[11]">
           {films.map((film, i) => (
-            <Card imageSrc="" title={film.title} key={i}></Card>
+            <div>
+              <Card imageSrc="" title={film.title} key={i}></Card>
+            </div>
           ))}
         </div>
       </Section>
