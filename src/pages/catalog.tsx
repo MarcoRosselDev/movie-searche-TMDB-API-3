@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { Image } from '../components/image'
 import { Section } from '../components/section'
 import { Film } from '../interfaces'
@@ -9,8 +10,29 @@ interface Props {
 }
 
 export const Catalog = (props: Props) => {
+  let title = ''
   //
   const [films, setFilms] = useState<Film[]>([])
+  const [params, _] = useSearchParams()
+
+  //
+  switch (props.type) {
+    case 'movie':
+      title = 'Movies'
+      break
+
+    case 'tv':
+      title = 'TV'
+      break
+
+    case 'search':
+      title = `Search results for <i>${params.get('q')}</i>`
+      break
+
+    default:
+      break
+  }
+
   return (
     <>
       {/* background */}
@@ -22,7 +44,9 @@ export const Catalog = (props: Props) => {
       <Section
         className="-mt-[150px] flex items-center relative z-10 mobile:block"
         title="PAGE TITLE"
-      ></Section>
+      >
+        <div className="grid grid-cols-4"></div>
+      </Section>
     </>
   )
 }
