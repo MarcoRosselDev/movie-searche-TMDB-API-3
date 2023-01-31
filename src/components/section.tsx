@@ -12,9 +12,7 @@ export const Section = (props: Props) => {
         <h1
           dangerouslySetInnerHTML={{ __html: props.title }}
           className="text-xl px-3 py-2"
-        >
-          {props.title}
-        </h1>
+        ></h1>
       ) : (
         ''
       )}
