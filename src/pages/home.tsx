@@ -5,8 +5,8 @@ import { Film } from '../interfaces'
 import { TrendingsHero } from '../components/trending-hero'
 import { Card } from '../components/card'
 import { useNavigate } from 'react-router-dom'
-import { getInTheaser, getTrendings } from '../api/tmdb-api'
-import { isFilm, tmdbImageSrc } from '../utils'
+import { getInTheaser, getPopulars, getTrendings } from '../api/tmdb-api'
+import { isFilm, mergeFilm, tmdbImageSrc } from '../utils'
 // import { Film } from './film'
 
 export const Home = () => {
@@ -15,6 +15,16 @@ export const Home = () => {
 
   const [trendings, setTrendings] = useState<Film[]>([])
   const [inTheaters, setInTheaters] = useState<Film[]>([])
+  const [populars, setPopulars] = useState<Film[]>([])
+
+  const fetchPopulars = async () => {
+    const movies = await getPopulars('movie')
+    const tvs = await getPopulars('tv')
+
+    const arrs: Film[] = []
+
+    setPopulars(mergeFilm(movies, tvs))
+  }
 
   const fetchInTeaters = async () => {
     setInTheaters(await getInTheaser())
@@ -26,21 +36,7 @@ export const Home = () => {
 
     const arrs: Film[] = []
 
-    for (let i = 0; i < 6; i++) {
-      let film: unknown
-
-      if (i % 2 == 1) {
-        if (tvs[i - 1]) {
-          film = tvs[i - 1]
-        }
-      } else {
-        if (movies[i - 1]) {
-          film = tvs[i - 1]
-        }
-      }
-      if (isFilm(film)) arrs.push(film)
-    }
-    setTrendings(arrs)
+    setTrendings(mergeFilm(movies, tvs))
   }
 
   useEffect(() => {
