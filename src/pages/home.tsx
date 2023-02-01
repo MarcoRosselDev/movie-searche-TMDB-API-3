@@ -74,13 +74,7 @@ export const Home = () => {
       </Section>
       {/* in theaters */}
       <Section title="In Theaters">
-        <Slider
-          isMovieCard={true}
-          className="click-hero"
-          autoplay={true}
-          slidesToShow={5}
-          slidesToScroll={5}
-        >
+        <Slider isMovieCard={true} autoplay={true}>
           {(_) =>
             inTheaters.map((film, i) => (
               <Card
@@ -93,8 +87,47 @@ export const Home = () => {
         </Slider>
       </Section>
       {/* populars */}
+      <Section title="What's Popular">
+        <Slider isMovieCard={true} autoplay={true}>
+          {(_) =>
+            inTheaters.map((film, i) => (
+              <Card
+                title={film.title}
+                imageSrc={tmdbImageSrc(film.posterPath)}
+                key={i}
+              ></Card>
+            ))
+          }
+        </Slider>
+      </Section>
       {/* top rated tv */}
+      <Section title="Top Rated TV">
+        <Slider isMovieCard={true} autoplay={true}>
+          {(_) =>
+            inTheaters.map((film, i) => (
+              <Card
+                title={film.title}
+                imageSrc={tmdbImageSrc(film.posterPath)}
+                key={i}
+              ></Card>
+            ))
+          }
+        </Slider>
+      </Section>
       {/* to rated movies */}
+      <Section title="Top Rated Movies">
+        <Slider isMovieCard={true} autoplay={true}>
+          {(_) =>
+            inTheaters.map((film, i) => (
+              <Card
+                title={film.title}
+                imageSrc={tmdbImageSrc(film.posterPath)}
+                key={i}
+              ></Card>
+            ))
+          }
+        </Slider>
+      </Section>
     </>
   )
 }
