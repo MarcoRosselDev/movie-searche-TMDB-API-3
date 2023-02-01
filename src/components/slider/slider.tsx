@@ -42,7 +42,6 @@ export const Slider = (props: Props) => {
   }
   //
   const [onSwipe, setOnSwipe] = useState(false)
-  console.log('holas')
 
   return (
     <Slick
