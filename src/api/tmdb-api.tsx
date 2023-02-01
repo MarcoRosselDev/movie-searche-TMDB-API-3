@@ -25,7 +25,7 @@ export const getTrendings = async (mediaType: MediaType): Promise<Film[]> => {
       }>
     >(`/trending/${mediaType}/week`)
 
-    return data.results.map((val) => formatResult(mediaType, val))
+    return data.results.map((val) => formatResult(val, mediaType))
   } catch (error) {
     console.log(error)
   }
@@ -41,7 +41,7 @@ export const getInTheaser = async (): Promise<Film[]> => {
       }>
     >(`/movie/now_playing`)
 
-    return data.results.map((val) => formatResult('movie', val))
+    return data.results.map((val) => formatResult(val, 'movie'))
   } catch (error) {
     console.log(error)
   }
@@ -64,7 +64,7 @@ export const getPopulars = async (
       },
     })
 
-    return data.results.map((val) => formatResult(mediaType, val))
+    return data.results.map((val) => formatResult(val, mediaType))
   } catch (error) {
     console.log(error)
   }
@@ -87,7 +87,28 @@ export const getTopRated = async (
       },
     })
 
-    return data.results.map((val) => formatResult(mediaType, val))
+    return data.results.map((val) => formatResult(val, mediaType))
+  } catch (error) {
+    console.log(error)
+  }
+  return []
+}
+
+export const search = async (query: string, page = 1): Promise<Film[]> => {
+  try {
+    const { data } = await axiosClient.get<
+      any,
+      AxiosResponse<{
+        results: unknown[]
+      }>
+    >(`/search/multi`, {
+      params: {
+        query,
+        page,
+      },
+    })
+
+    return data.results.map((val) => formatResult(val))
   } catch (error) {
     console.log(error)
   }
