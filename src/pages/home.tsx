@@ -5,7 +5,12 @@ import { Film } from '../interfaces'
 import { TrendingsHero } from '../components/trending-hero'
 import { Card } from '../components/card'
 import { useNavigate } from 'react-router-dom'
-import { getInTheaser, getPopulars, getTrendings } from '../api/tmdb-api'
+import {
+  getInTheaser,
+  getPopulars,
+  getTopRated,
+  getTrendings,
+} from '../api/tmdb-api'
 import { isFilm, mergeFilm, tmdbImageSrc } from '../utils'
 // import { Film } from './film'
 
@@ -16,6 +21,15 @@ export const Home = () => {
   const [trendings, setTrendings] = useState<Film[]>([])
   const [inTheaters, setInTheaters] = useState<Film[]>([])
   const [populars, setPopulars] = useState<Film[]>([])
+  const [topRatedTV, setTopRatedTV] = useState<Film[]>([])
+  const [topRatedMovies, setTopRatedMovies] = useState<Film[]>([])
+
+  const fetchTopRatedMovies = async () => {
+    setTopRatedMovies(await getTopRated('movie'))
+  }
+  const fetchTopRatedTV = async () => {
+    setTopRatedTV(await getTopRated('tv'))
+  }
 
   const fetchPopulars = async () => {
     const movies = await getPopulars('movie')
@@ -44,6 +58,8 @@ export const Home = () => {
     fetchTrending()
     fetchInTeaters()
     fetchPopulars()
+    fetchTopRatedTV()
+    fetchTopRatedMovies()
   }, [])
 
   return (
@@ -101,7 +117,7 @@ export const Home = () => {
       <Section title="Top Rated TV">
         <Slider isMovieCard={true} autoplay={true}>
           {(_) =>
-            inTheaters.map((film, i) => (
+            topRatedTV.map((film, i) => (
               <Card
                 title={film.title}
                 imageSrc={tmdbImageSrc(film.posterPath)}
@@ -115,7 +131,7 @@ export const Home = () => {
       <Section title="Top Rated Movies">
         <Slider isMovieCard={true} autoplay={true}>
           {(_) =>
-            inTheaters.map((film, i) => (
+            topRatedMovies.map((film, i) => (
               <Card
                 title={film.title}
                 imageSrc={tmdbImageSrc(film.posterPath)}
