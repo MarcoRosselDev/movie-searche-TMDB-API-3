@@ -43,6 +43,7 @@ export const Home = () => {
     // fetch()
     fetchTrending()
     fetchInTeaters()
+    fetchPopulars()
   }, [])
 
   return (
@@ -86,7 +87,7 @@ export const Home = () => {
       <Section title="What's Popular">
         <Slider isMovieCard={true} autoplay={true}>
           {(_) =>
-            inTheaters.map((film, i) => (
+            populars.map((film, i) => (
               <Card
                 title={film.title}
                 imageSrc={tmdbImageSrc(film.posterPath)}
