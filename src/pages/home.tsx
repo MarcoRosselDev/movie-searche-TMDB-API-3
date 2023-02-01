@@ -5,8 +5,8 @@ import { Film } from '../interfaces'
 import { TrendingsHero } from '../components/trending-hero'
 import { Card } from '../components/card'
 import { useNavigate } from 'react-router-dom'
-import { getTrendings } from '../api/tmdb-api'
-import { isFilm } from '../utils'
+import { getInTheaser, getTrendings } from '../api/tmdb-api'
+import { isFilm, tmdbImageSrc } from '../utils'
 // import { Film } from './film'
 
 export const Home = () => {
@@ -15,6 +15,10 @@ export const Home = () => {
 
   const [trendings, setTrendings] = useState<Film[]>([])
   const [inTheaters, setInTheaters] = useState<Film[]>([])
+
+  const fetchInTeaters = async () => {
+    setInTheaters(await getInTheaser())
+  }
 
   const fetchTrending = async () => {
     const movies = await getTrendings('movie')
@@ -39,28 +43,10 @@ export const Home = () => {
     setTrendings(arrs)
   }
 
-  const fetch = () => {
-    const arrs: Film[] = []
-    for (let i = 0; i < 5; i++) {
-      arrs.push({
-        id: i,
-        mediaType: 'tv',
-        title: 'Lorem ipsumdolo sit emet consectetur adipsisicing elit,',
-        description:
-          'Lorem ipsumdolo sit emet consectetur adipsisicing elit, quam, susciipit? pariatur non ipse alias at, iure, repellat',
-        coverPath: '',
-        genreIds: [1, 2, 3, 4, 5, 6],
-        posterPath: '',
-        seasons: [],
-      })
-    }
-    setTrendings(arrs)
-    setInTheaters(arrs)
-  }
-
   useEffect(() => {
+    // fetch()
     fetchTrending()
-    fetch()
+    fetchInTeaters()
   }, [])
 
   return (
@@ -97,7 +83,11 @@ export const Home = () => {
         >
           {(_) =>
             inTheaters.map((film, i) => (
-              <Card title={film.title} imageSrc="" key={i}></Card>
+              <Card
+                title={film.title}
+                imageSrc={tmdbImageSrc(film.posterPath)}
+                key={i}
+              ></Card>
             ))
           }
         </Slider>

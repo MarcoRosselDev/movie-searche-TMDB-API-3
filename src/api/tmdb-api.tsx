@@ -32,7 +32,7 @@ export const getTrendings = async (mediaType: MediaType): Promise<Film[]> => {
   return []
 }
 
-export const getTheaser = async (): Promise<Film[]> => {
+export const getInTheaser = async (): Promise<Film[]> => {
   try {
     const { data } = await axiosClient.get<
       any,
