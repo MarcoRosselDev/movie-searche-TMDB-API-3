@@ -23,7 +23,7 @@ export const Home = () => {
 
     const arrs: Film[] = []
 
-    setPopulars(mergeFilm(movies, tvs))
+    setPopulars(mergeFilm(movies, tvs, 20))
   }
 
   const fetchInTeaters = async () => {
