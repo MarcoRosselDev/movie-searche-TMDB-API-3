@@ -47,3 +47,26 @@ export const getInTheaser = async (): Promise<Film[]> => {
   }
   return []
 }
+
+export const getPopulars = async (
+  mediaType: MediaType,
+  page = 1
+): Promise<Film[]> => {
+  try {
+    const { data } = await axiosClient.get<
+      any,
+      AxiosResponse<{
+        results: unknown[]
+      }>
+    >(`/${mediaType}/popular`, {
+      params: {
+        page,
+      },
+    })
+
+    return data.results.map((val) => formatResult('movie', val))
+  } catch (error) {
+    console.log(error)
+  }
+  return []
+}
