@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { search } from '../api/tmdb-api'
 import { Film } from '../interfaces'
+import { tmdbImageSrc } from '../utils'
 import { Image } from './image'
 
 interface Props {
@@ -13,22 +15,12 @@ export const SearchResult = (props: Props) => {
   const [totalItem, setTotalItem] = useState(6)
   //
 
-  const fetch = () => {
-    const arrs: Film[] = []
-    for (let i = 0; i < 5; i++) {
-      arrs.push({
-        id: i,
-        mediaType: 'tv',
-        title:
-          'Lorem ipsumdolo sit emet consectetur adipsisicing elit, quam, susciipit? pariatur non ipse alias at, iure, repellat',
-        description: '',
-        coverPath: '',
-        genreIds: [1, 2, 3, 4, 5, 6],
-        posterPath: '',
-        seasons: [],
-      })
-    }
-    setItems(arrs)
+  const searchTimeout = useRef<any>(0)
+  const fetch = async () => {
+    clearTimeout(searchTimeout.current)
+    searchTimeout.current = setTimeout(async () => {
+      setItems(await search(props.keyword))
+    }, 120)
   }
 
   useEffect(() => {
@@ -52,7 +44,10 @@ export const SearchResult = (props: Props) => {
           className="flex items-start p-1.5 rounded-lg hover:bg-primary cursor-pointer m-1.5"
         >
           {/* image */}
-          <Image src="" className="h-[72px] w-[102px] rounded-md"></Image>
+          <Image
+            src={tmdbImageSrc(film.posterPath)}
+            className="h-[72px] w-[102px] rounded-md"
+          ></Image>
           {/* title and genres */}
           <div className="px-3">
             <p className="text-base truncate">{film.title}</p>
