@@ -6,7 +6,7 @@ import { Body } from '../leyouts/Body'
 import { Footer } from '../leyouts/Footer'
 import { Genre } from '../interfaces'
 import { MediaType } from '../types'
-import { useContext, createContext, useState } from 'react'
+import { useContext, createContext, useState, useEffect } from 'react'
 import { Loading } from './loading'
 
 type Genres = {
@@ -29,6 +29,8 @@ export const AppContainer = () => {
     movie: [],
     tv: [],
   })
+
+  useEffect(() => {}, [])
 
   if (!genres.movie.length || !genres.movie.length) {
     return (
