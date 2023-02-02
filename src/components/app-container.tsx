@@ -8,6 +8,7 @@ import { Genre } from '../interfaces'
 import { MediaType } from '../types'
 import { useContext, createContext, useState, useEffect } from 'react'
 import { Loading } from './loading'
+import { getGenres } from '../api/tmdb-api'
 
 type Genres = {
   [key in MediaType]: Genre[]
@@ -30,7 +31,19 @@ export const AppContainer = () => {
     tv: [],
   })
 
-  useEffect(() => {}, [])
+  const fetchGenres = async () => {
+    const movie = await getGenres('movie')
+    const tv = await getGenres('tv')
+
+    setGenres({
+      movie,
+      tv,
+    })
+  }
+
+  useEffect(() => {
+    fetchGenres()
+  }, [])
 
   if (!genres.movie.length || !genres.movie.length) {
     return (
