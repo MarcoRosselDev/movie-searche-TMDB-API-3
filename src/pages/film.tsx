@@ -8,6 +8,7 @@ import { Card } from '../components/card'
 import { Slider } from '../components/slider/slider'
 import { getDetail } from '../api/tmdb-api'
 import { tmdbImageSrc } from '../utils'
+import { useGlobalContext } from '../components/app-container'
 
 interface Props {
   mediaType: MediaType
@@ -23,6 +24,8 @@ export const Film = (props: Props) => {
   const [casts, setCasts] = useState<Cast[]>([])
   const [trailers, setTrailers] = useState<Trailer[]>([])
   const [recommendations, setRecommendations] = useState<FilmInterface[]>([])
+
+  const globalContext = useGlobalContext()
 
   const fetch = async () => {
     setFilm(await getDetail(props.mediaType, parseInt(id as string)))
@@ -65,12 +68,15 @@ export const Film = (props: Props) => {
         <div className="px-3 flex flex-col items-start gap-3">
           <p className="text-xl line-clamp-1">{film.title}</p>
           <ul className="flex items-center gap-3">
-            {film.genreIds.map((genre, i) => (
+            {film.genreIds.map((id, i) => (
               <li
-                className="px-3 py-1.5 border-primary rounded-lg text-sm "
-                key={i}
+                key={id}
+                className="px-3 py-1.5 bg-primary rounded-lg text-sm"
               >
-                item {i}
+                {
+                  globalContext.genres[film.mediaType]?.find((g) => g.id === id)
+                    ?.name
+                }
               </li>
             ))}
           </ul>
