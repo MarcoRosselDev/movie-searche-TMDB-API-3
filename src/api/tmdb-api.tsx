@@ -94,11 +94,18 @@ export const getTopRated = async (
   return []
 }
 
-export const search = async (query: string, page = 1): Promise<Film[]> => {
+export const search = async (
+  query: string,
+  page = 1
+): Promise<{
+  totalResults: number
+  films: Film[]
+}> => {
   try {
     const { data } = await axiosClient.get<
       any,
       AxiosResponse<{
+        total_results: number
         results: unknown[]
       }>
     >(`/search/multi`, {
@@ -108,9 +115,15 @@ export const search = async (query: string, page = 1): Promise<Film[]> => {
       },
     })
 
-    return data.results.map((val) => formatResult(val))
+    return {
+      totalResults: data.total_results,
+      films: data.results.map((val) => formatResult(val)),
+    }
   } catch (error) {
     console.log(error)
   }
-  return []
+  return {
+    totalResults: 0,
+    films: [],
+  }
 }

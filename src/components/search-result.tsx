@@ -16,10 +16,13 @@ export const SearchResult = (props: Props) => {
   //
 
   const searchTimeout = useRef<any>(0)
+  //
   const fetch = async () => {
     clearTimeout(searchTimeout.current)
     searchTimeout.current = setTimeout(async () => {
-      setItems(await search(props.keyword))
+      const res = await search(props.keyword)
+      setTotalItem(res.totalResults)
+      setItems(res.films)
     }, 120)
   }
 
