@@ -19,7 +19,7 @@ export const Film = (props: Props) => {
   const navigate = useNavigate()
   const { id } = useParams<any>()
   //
-  const [film, setFilm] = useState<FilmInterface | null | undefined>(null)
+  const [film, setFilm] = useState<FilmInterface | null>(null)
 
   const [casts, setCasts] = useState<Cast[]>([])
   const [trailers, setTrailers] = useState<Trailer[]>([])
