@@ -145,3 +145,18 @@ export const getGenres = async (mediaType: MediaType): Promise<Genre[]> => {
 
   return []
 }
+
+export const getDetail = async (
+  mediaType: MediaType,
+  id: number
+): Promise<null | Film> => {
+  try {
+    const { data } = await axiosClient.get(`/${mediaType}/${id}`)
+
+    return formatResult(data, mediaType)
+  } catch (error) {
+    console.error(error)
+  }
+
+  return null
+}

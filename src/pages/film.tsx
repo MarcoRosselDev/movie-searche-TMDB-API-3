@@ -6,6 +6,8 @@ import { MediaType } from '../types'
 import { Cast, Trailer, Film as FilmInterface } from '../interfaces'
 import { Card } from '../components/card'
 import { Slider } from '../components/slider/slider'
+import { getDetail } from '../api/tmdb-api'
+import { tmdbImageSrc } from '../utils'
 
 interface Props {
   mediaType: MediaType
@@ -14,39 +16,17 @@ interface Props {
 export const Film = (props: Props) => {
   //
   const navigate = useNavigate()
-  const { params } = useParams()
+  const { id } = useParams<any>()
   //
-  const [film, setFilm] = useState<FilmInterface>({
-    id: 0,
-    coverPath: '',
-    title: 'random title',
-    description:
-      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi nemo repellendus quo corporis earum laudantium necessitatibus maxime culpa a! Aspernatur eos nam ex repudiandae provident, sed nulla fugit necessitatibus esse.',
-    genreIds: [1, 2, 3, 4],
-    mediaType: props.mediaType,
-    posterPath: '',
-    seasons: [
-      {
-        id: 1,
-        seasonNumber: 1,
-      },
-      {
-        id: 2,
-        seasonNumber: 2,
-      },
-      {
-        id: 3,
-        seasonNumber: 3,
-      },
-    ],
-  })
+  const [film, setFilm] = useState<FilmInterface | null | undefined>(null)
 
   const [casts, setCasts] = useState<Cast[]>([])
   const [trailers, setTrailers] = useState<Trailer[]>([])
-  // const [season, setSeason] = useState<Trailer[]>([])
   const [recommendations, setRecommendations] = useState<FilmInterface[]>([])
 
-  const fetch = () => {
+  const fetch = async () => {
+    setFilm(await getDetail(props.mediaType, parseInt(id as string)))
+
     const arrs: any[] = []
 
     for (let i = 0; i < 20; i++) {
@@ -62,16 +42,24 @@ export const Film = (props: Props) => {
     fetch()
   }, [])
 
+  if (!film) {
+    return <div>404</div>
+  }
+
   return (
     <>
       {/* background */}
       <div className="h-[300px] left-0 right-0 top-0 relative">
         <div className="overlay-film-cover"></div>
-        <Image src=""></Image>
+        <Image
+          src={tmdbImageSrc(film.coverPath)}
+          className="rounded-0 rounded-none"
+        ></Image>
       </div>
+      {/* poster and text */}
       <Section className="-mt-[150px] flex items-center relative z-10 mobile:block">
         <Image
-          src=""
+          src={tmdbImageSrc(film.posterPath)}
           className="w-[200px] min-w-[200px] h-[300px] mobile:mx-auto"
         ></Image>
         <div className="px-3 flex flex-col items-start gap-3">
