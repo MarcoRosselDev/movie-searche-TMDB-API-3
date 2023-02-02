@@ -12,12 +12,15 @@ interface Props {
 export const SearchResult = (props: Props) => {
   const [items, setItems] = useState<Film[]>([])
 
-  const [totalItem, setTotalItem] = useState(6)
+  const [totalItem, setTotalItem] = useState(0)
   //
 
   const searchTimeout = useRef<any>(0)
   //
   const fetch = async () => {
+    if (props.keyword) {
+    }
+
     clearTimeout(searchTimeout.current)
     searchTimeout.current = setTimeout(async () => {
       const res = await search(props.keyword)
@@ -39,6 +42,10 @@ export const SearchResult = (props: Props) => {
     right-0
     rounded-md
     overflow-hidden
+    bg-header
+    max-h-[480px]
+    shadow-lg
+    scrollbar scrollbar-thumb-primary scrollbar-track-header
     "
     >
       {items.map((film, i) => (
