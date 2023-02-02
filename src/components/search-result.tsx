@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { search } from '../api/tmdb-api'
 import { Film } from '../interfaces'
 import { tmdbImageSrc } from '../utils'
+import { useGlobalContext } from './app-container'
 import { Image } from './image'
 
 interface Props {
@@ -16,6 +17,8 @@ export const SearchResult = (props: Props) => {
   //
 
   const searchTimeout = useRef<any>(0)
+  //
+  const globalContext = useGlobalContext()
   //
   const fetch = async () => {
     if (props.keyword) {
@@ -63,7 +66,14 @@ export const SearchResult = (props: Props) => {
             <p className="text-base truncate">{film.title}</p>
             <ul className="flex flex-wrap gap-x-1.5 text-sm opacity-[0.7]">
               {film.genreIds.map((id, i) => (
-                <li key={i}>item {i}</li>
+                <li key={i}>
+                  {
+                    globalContext.genres[film.mediaType].find(
+                      (g) => g.id === id
+                    )?.name
+                  }
+                  {i !== film.genreIds.length - 1 ? ',' : ''}
+                </li>
               ))}
             </ul>
           </div>
