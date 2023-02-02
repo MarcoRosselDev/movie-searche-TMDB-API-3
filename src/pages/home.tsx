@@ -24,6 +24,10 @@ export const Home = () => {
   const [topRatedTV, setTopRatedTV] = useState<Film[]>([])
   const [topRatedMovies, setTopRatedMovies] = useState<Film[]>([])
 
+  const goToDetailPage = (film: Film) => {
+    navigate(`/${film.mediaType}/${film.id}`)
+  }
+
   const fetchTopRatedMovies = async () => {
     setTopRatedMovies(await getTopRated('movie'))
   }
@@ -91,6 +95,7 @@ export const Home = () => {
           {(_) =>
             inTheaters.map((film, i) => (
               <Card
+                onClick={() => goToDetailPage(film)}
                 title={film.title}
                 imageSrc={tmdbImageSrc(film.posterPath)}
                 key={i}
@@ -105,6 +110,7 @@ export const Home = () => {
           {(_) =>
             populars.map((film, i) => (
               <Card
+                onClick={() => goToDetailPage(film)}
                 title={film.title}
                 imageSrc={tmdbImageSrc(film.posterPath)}
                 key={i}
@@ -119,6 +125,7 @@ export const Home = () => {
           {(_) =>
             topRatedTV.map((film, i) => (
               <Card
+                onClick={() => goToDetailPage(film)}
                 title={film.title}
                 imageSrc={tmdbImageSrc(film.posterPath)}
                 key={i}
@@ -133,6 +140,7 @@ export const Home = () => {
           {(_) =>
             topRatedMovies.map((film, i) => (
               <Card
+                onClick={() => goToDetailPage(film)}
                 title={film.title}
                 imageSrc={tmdbImageSrc(film.posterPath)}
                 key={i}
