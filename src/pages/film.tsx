@@ -19,7 +19,7 @@ export const Film = (props: Props) => {
   const navigate = useNavigate()
   const { id } = useParams<any>()
   //
-  const [film, setFilm] = useState<FilmInterface | null>(null)
+  const [film, setFilm] = useState<FilmInterface | null | undefined>(null)
 
   const [casts, setCasts] = useState<Cast[]>([])
   const [trailers, setTrailers] = useState<Trailer[]>([])
@@ -28,6 +28,8 @@ export const Film = (props: Props) => {
   const globalContext = useGlobalContext()
 
   const fetch = async () => {
+    // const film = await getDetail(props.mediaType, parseInt(id as string))
+
     setFilm(await getDetail(props.mediaType, parseInt(id as string)))
 
     const arrs: any[] = []
