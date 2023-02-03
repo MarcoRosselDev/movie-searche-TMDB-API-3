@@ -1,3 +1,4 @@
+import { createContext, useContext, useEffect, useState } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
 //layout
@@ -6,7 +7,6 @@ import { Body } from '../leyouts/Body'
 import { Footer } from '../leyouts/Footer'
 import { Genre } from '../interfaces'
 import { MediaType } from '../types'
-import { createContext, useContext, useEffect, useState } from 'react'
 import { Loading } from './loading'
 import { getGenres } from '../api/tmdb-api'
 

@@ -9,7 +9,7 @@ interface Props {
   onClick: () => void
 }
 
-export const TrendingsHero = (props: Props) => {
+export const TrendingHero = (props: Props) => {
   //
   const navigate = useNavigate()
 

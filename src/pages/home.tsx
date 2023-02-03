@@ -2,7 +2,7 @@ import { Section } from '../components/section'
 import { Slider } from '../components/slider/slider'
 import { useEffect, useState } from 'react'
 import { Film } from '../interfaces'
-import { TrendingsHero } from '../components/trending-hero'
+import { TrendingHero } from '../components/trending-hero'
 import { Card } from '../components/card'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -27,7 +27,6 @@ export const Home = () => {
   const goToDetailPage = (film: Film) => {
     navigate(`/${film.mediaType}/${film.id}`)
   }
-
   const fetchTopRatedMovies = async () => {
     setTopRatedMovies(await getTopRated('movie'))
   }
@@ -78,13 +77,13 @@ export const Home = () => {
         >
           {(onSwipe) =>
             trendings.map((film, i) => (
-              <TrendingsHero
+              <TrendingHero
                 onClick={() =>
                   !onSwipe ? navigate(`/${film.mediaType}/${film.id}`) : ''
                 }
                 film={film}
                 key={i}
-              ></TrendingsHero>
+              ></TrendingHero>
             ))
           }
         </Slider>

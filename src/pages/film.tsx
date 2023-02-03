@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Image } from '../components/image'
 import { Section } from '../components/section'
 import { MediaType } from '../types'
@@ -17,6 +17,7 @@ interface Props {
 
 export const Film = (props: Props) => {
   //
+  const location = useLocation()
   const navigate = useNavigate()
   const { id } = useParams<any>()
   //
@@ -29,32 +30,22 @@ export const Film = (props: Props) => {
   const globalContext = useGlobalContext()
 
   const fetch = async () => {
-    // const film = await getDetail(props.mediaType, parseInt(id as string))
     const film = await getDetail(props.mediaType, parseInt(id as string))
 
     if (film) {
       setFilm(film)
-
       setCasts(await getCasts(film.mediaType, film.id))
     }
-
-    const arrs: any[] = []
-
-    for (let i = 0; i < 20; i++) {
-      arrs.push({})
-    }
-
-    setTrailers(arrs)
-    setRecommendations(arrs)
   }
 
   useEffect(() => {
+    setFilm(undefined)
     fetch()
   }, [])
 
   if (film === null) {
     // redirect to 404 page
-    return <></>
+    return <>404</>
   } else if (film === undefined) {
     return (
       <div className="text-center p-6 h-full flex-1">
