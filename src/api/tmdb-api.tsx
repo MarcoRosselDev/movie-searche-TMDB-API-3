@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
+
 import { Cast, Episode, Film, Genre, Season, Trailer } from '../interfaces'
 import { MediaType } from '../types'
 import { formatResult } from '../utils'
@@ -10,6 +11,7 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use((config) => {
   return {
     ...config,
+
     params: {
       ...config.params,
       api_key: process.env.REACT_APP_TMDB_API_KEY,
@@ -28,12 +30,13 @@ export const getTrendings = async (mediaType: MediaType): Promise<Film[]> => {
 
     return data.results.map((val) => formatResult(val, mediaType))
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
+
   return []
 }
 
-export const getInTheaser = async (): Promise<Film[]> => {
+export const getInTheaters = async (): Promise<Film[]> => {
   try {
     const { data } = await axiosClient.get<
       any,
@@ -44,8 +47,9 @@ export const getInTheaser = async (): Promise<Film[]> => {
 
     return data.results.map((val) => formatResult(val, 'movie'))
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
+
   return []
 }
 
@@ -67,8 +71,9 @@ export const getPopulars = async (
 
     return data.results.map((val) => formatResult(val, mediaType))
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
+
   return []
 }
 
@@ -105,6 +110,7 @@ export const getTopRated = async (
     totalPages: 0,
   }
 }
+
 export const search = async (
   query: string,
   page = 1
@@ -143,6 +149,7 @@ export const search = async (
     films: [],
   }
 }
+
 export const getGenres = async (mediaType: MediaType): Promise<Genre[]> => {
   try {
     const { data } = await axiosClient.get<
