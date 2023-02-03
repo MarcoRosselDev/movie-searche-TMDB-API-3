@@ -42,13 +42,18 @@ export const Season = () => {
       <Section className="-mt-[75px] flex items-center relative z-10 mobile:block">
         <Image
           src={tmdbImageSrc(season.posterPath)}
-          className="w-[200px] min-w-[200px] h-[300px] mobile:mx-auto"
+          className="w-[150px] min-w-[150px] min-h-[200px] h-[200px] mobile:mx-auto"
         ></Image>
-        <div className="px-3 flex flex-col items-start gap-3">
+        <div className="px-3 flex flex-col items-start gap-3 py-3">
           <p className="text-xl line-clamp-1">{season.filmName}</p>
-          <p className="line-clamp-3 opacity-[0.9]">
-            {season.name} - {season.episodes?.length} episodes
-          </p>
+          <div className="flex items-center">
+            <p className="text-sm opacity-[0.9]">
+              {season.name} ({new Date(season.airDate).getFullYear()})
+            </p>
+            <p className="text-sm opacity-[0.9] ml-1">
+              &#8226; {season.episodes?.length} episodes
+            </p>
+          </div>
         </div>
       </Section>
       {/* episodes */}
