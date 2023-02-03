@@ -75,12 +75,16 @@ export const getPopulars = async (
 export const getTopRated = async (
   mediaType: MediaType,
   page = 1
-): Promise<Film[]> => {
+): Promise<{
+  films: Film[]
+  totalPages: number
+}> => {
   try {
     const { data } = await axiosClient.get<
       any,
       AxiosResponse<{
         results: unknown[]
+        total_pages: number
       }>
     >(`/${mediaType}/top_rated`, {
       params: {
@@ -88,17 +92,24 @@ export const getTopRated = async (
       },
     })
 
-    return data.results.map((val) => formatResult(val, mediaType))
+    return {
+      films: data.results.map((val) => formatResult(val, mediaType)),
+      totalPages: data.total_pages,
+    }
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
-  return []
-}
 
+  return {
+    films: [],
+    totalPages: 0,
+  }
+}
 export const search = async (
   query: string,
   page = 1
 ): Promise<{
+  totalPages: number
   totalResults: number
   films: Film[]
 }> => {
@@ -106,6 +117,7 @@ export const search = async (
     const { data } = await axiosClient.get<
       any,
       AxiosResponse<{
+        total_pages: number
         total_results: number
         results: unknown[]
       }>
@@ -117,18 +129,20 @@ export const search = async (
     })
 
     return {
+      totalPages: data.total_pages,
       totalResults: data.total_results,
       films: data.results.map((val) => formatResult(val)),
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
+
   return {
+    totalPages: 0,
     totalResults: 0,
     films: [],
   }
 }
-
 export const getGenres = async (mediaType: MediaType): Promise<Genre[]> => {
   try {
     const { data } = await axiosClient.get<
