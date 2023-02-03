@@ -136,6 +136,7 @@ export const Film = (props: Props) => {
           {() =>
             film.seasons.map((season, i) => (
               <Card
+                className="h-[300px]"
                 onClick={() =>
                   navigate(`/tv/${film.id}/season/${season.seasonNumber}`)
                 }
