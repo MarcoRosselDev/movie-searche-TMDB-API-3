@@ -28,7 +28,7 @@ export const Season = () => {
         seasonNumber: 3,
       },
     ],
-  })
+  } as any)
 
   //
   const [episodes, setEpisodes] = useState<any[]>()

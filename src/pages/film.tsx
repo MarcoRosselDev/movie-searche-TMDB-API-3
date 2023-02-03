@@ -129,8 +129,8 @@ export const Film = (props: Props) => {
                 onClick={() =>
                   navigate(`/tv/${film.id}/season/${season.seasonNumber}`)
                 }
-                title={`Season ${season.seasonNumber}`}
-                imageSrc=""
+                title={season.name}
+                imageSrc={tmdbImageSrc(season.posterPath)}
                 key={i}
               ></Card>
             ))

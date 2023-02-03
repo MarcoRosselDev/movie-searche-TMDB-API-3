@@ -1,4 +1,4 @@
-import { Film } from './interfaces'
+import { Film, Season } from './interfaces'
 import { MediaType } from './types'
 
 export const mergeClassName = (val1: string, val2?: string) => {
@@ -14,7 +14,16 @@ export const formatResult = (obj: any, mediaType?: MediaType): Film => {
     posterPath: obj.poster_path,
     genreIds: obj.genre_ids || obj.genres?.map((g: any) => g.id) || [],
     mediaType: mediaType || obj.media_type,
-    seasons: obj.seasons || [],
+    seasons:
+      obj.seasons?.map(
+        (season: any) =>
+          ({
+            id: season.id,
+            name: season.name,
+            posterPath: season.poster_path,
+            seasonNumber: season.season_number,
+          } satisfies Season)
+      ) || [],
   }
 }
 
