@@ -48,7 +48,7 @@ export const Film = (props: Props) => {
   useEffect(() => {
     setFilm(undefined)
     fetch()
-  }, [])
+  }, [location])
 
   if (film === null) {
     // redirect to 404 page
@@ -129,10 +129,9 @@ export const Film = (props: Props) => {
       {/* seasons */}
       <Section title="Seasons">
         <Slider
-          slidesToShow={2}
-          slidesToScroll={2}
+          slidesToShow={film.seasons.length > 2 ? 2 : 1}
+          slidesToScroll={film.seasons.length > 2 ? 2 : 1}
           swipe={false}
-          autoplay={true}
         >
           {() =>
             film.seasons.map((season, i) => (
@@ -154,6 +153,7 @@ export const Film = (props: Props) => {
           {(_) =>
             recommendations.map((film, i) => (
               <Card
+                onClick={() => navigate(`/${props.mediaType}/${film.id}`)}
                 title={film.title}
                 imageSrc={tmdbImageSrc(film.posterPath)}
                 key={i}

@@ -10,7 +10,6 @@ interface Props extends Omit<Settings, 'children'> {
 }
 
 export const Slider = (props: Props) => {
-  //
   let settings: Omit<Settings, 'children'> = {
     ...props,
   }
@@ -40,11 +39,12 @@ export const Slider = (props: Props) => {
       ],
     }
   }
-  //
+
   const [onSwipe, setOnSwipe] = useState(false)
 
   return (
     <Slick
+      autoplay={false}
       {...settings}
       autoplaySpeed={5000}
       onSwipe={() => setOnSwipe(true)}
