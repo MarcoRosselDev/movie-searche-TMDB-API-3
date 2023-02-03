@@ -6,8 +6,8 @@ import { MediaType } from '../types'
 import { Cast, Trailer, Film as FilmInterface } from '../interfaces'
 import { Card } from '../components/card'
 import { Slider } from '../components/slider/slider'
-import { getCasts, getDetail } from '../api/tmdb-api'
-import { tmdbImageSrc } from '../utils'
+import { getCasts, getDetail, getTrailers } from '../api/tmdb-api'
+import { tmdbImageSrc, youtubeThumbnail } from '../utils'
 import { useGlobalContext } from '../components/app-container'
 import { Loading } from '../components/loading'
 
@@ -35,6 +35,7 @@ export const Film = (props: Props) => {
     if (film) {
       setFilm(film)
       setCasts(await getCasts(film.mediaType, film.id))
+      setTrailers(await getTrailers(film.mediaType, film.id))
     }
   }
 
@@ -107,9 +108,13 @@ export const Film = (props: Props) => {
       <Section title="Trailers">
         <div className="scrollbar scrollbar-thumb-primary scrollbar-track-header">
           <div className="flex items-center gap-3 h-[300px]">
-            {casts.map((cast, i) => (
+            {trailers.map((trailer, i) => (
               <div className="flex-shrink-0 w-[300px] my-3">
-                <Card imageSrc="" title="lorem ipsum" key={i}></Card>
+                <Card
+                  imageSrc={youtubeThumbnail(trailer.key)}
+                  title="lorem ipsum"
+                  key={i}
+                ></Card>
               </div>
             ))}
           </div>
