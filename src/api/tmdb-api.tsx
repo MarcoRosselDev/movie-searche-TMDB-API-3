@@ -271,3 +271,37 @@ export const getSeason = async (
 
   return null
 }
+
+export const discover = async (
+  mediaType: MediaType,
+  page = 1
+): Promise<{
+  films: Film[]
+  totalPages: number
+}> => {
+  try {
+    const { data } = await axiosClient.get<
+      any,
+      AxiosResponse<{
+        total_pages: number
+        results: unknown[]
+      }>
+    >(`/discover/${mediaType}`, {
+      params: {
+        page,
+      },
+    })
+
+    return {
+      films: data.results.map((val) => formatResult(val, mediaType)),
+      totalPages: data.total_pages,
+    }
+  } catch (error) {
+    console.error(error)
+  }
+
+  return {
+    films: [],
+    totalPages: 0,
+  }
+}

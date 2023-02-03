@@ -1,10 +1,17 @@
-import { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from 'react-router-dom'
+
+import { discover, getTopRated, search } from '../api/tmdb-api'
 import { Card } from '../components/card'
-import { Image } from '../components/image'
 import { Section } from '../components/section'
 import { Film } from '../interfaces'
 import { MediaType } from '../types'
+import { tmdbImageSrc } from '../utils'
 
 interface Props {
   type: MediaType | 'search'
@@ -12,18 +19,26 @@ interface Props {
 
 export const Catalog = (props: Props) => {
   let title = ''
+  let request: (page: number) => Promise<{
+    totalPages: number
+    films: Film[]
+  }>
   //
   const [films, setFilms] = useState<Film[]>([])
   const [params, _] = useSearchParams()
+  const navigate = useNavigate()
 
   //
   switch (props.type) {
     case 'movie':
       title = 'Movies'
+      request = (page: number) => discover('movie', page)
+
       break
 
     case 'tv':
       title = 'TV'
+      request = () => discover('tv')
       break
 
     case 'search':
@@ -34,15 +49,8 @@ export const Catalog = (props: Props) => {
       break
   }
 
-  const fetch = () => {
-    const arrs: any[] = []
-
-    for (let i = 0; i < 20; i++) {
-      arrs.push({
-        title: 'lorems ipsum ...',
-      })
-    }
-    setFilms(arrs)
+  const fetch = async () => {
+    setFilms(await request())
   }
 
   useEffect(() => {
@@ -66,7 +74,11 @@ export const Catalog = (props: Props) => {
         <div className="grid lg:grid-cols-5 sm:grid-cols-4 mobile:grid-cols-3 relative z-[11]">
           {films.map((film, i) => (
             <div>
-              <Card imageSrc="" title={film.title} key={i}></Card>
+              <Card
+                imageSrc={tmdbImageSrc(film.posterPath)}
+                title={film.title}
+                key={i}
+              ></Card>
             </div>
           ))}
         </div>

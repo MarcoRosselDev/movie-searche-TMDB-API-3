@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+
 import { getSeason } from '../api/tmdb-api'
 import { Image } from '../components/image'
 import { Section } from '../components/section'
-import { Film, Season as SeasonInterface } from '../interfaces'
+import { Season as SeasonInterface } from '../interfaces'
 import { formatDate, tmdbImageSrc } from '../utils'
 
 export const Season = () => {
@@ -58,22 +59,22 @@ export const Season = () => {
       </Section>
       {/* episodes */}
       <Section title="Episodes">
-        {season.episodes.map((episodes, i) => (
+        {season.episodes.map((episode, i) => (
           <div
             className="my-6 flex items-stretch gap-4 rounded-md overflow-hidden cursor-pointer hover:bg-primary px-3 py-1.5 mobile:block"
             key={i}
           >
             <Image
-              src={tmdbImageSrc(episodes.stillPath)}
+              src={tmdbImageSrc(episode.stillPath)}
               className="min-w-[300px] w-[300px] h-[150px]"
             ></Image>
             <div className="overflow-hidden flex flex-col gap-3 mobile:py-3">
               <p className="text-lg truncate">
-                {episodes.episodeNumber}. {episodes.title}
+                {episode.episodeNumber}. {episode.title}
               </p>
-              <p className="opacity-[0.9] line-clamp-5">{episodes.overview}</p>
+              <p className="opacity-[0.9] line-clamp-5">{episode.overview}</p>
               <div className="mt-auto pt-3 text-right">
-                {formatDate(episodes.airDate)}
+                {formatDate(episode.airDate)}
               </div>
             </div>
           </div>
