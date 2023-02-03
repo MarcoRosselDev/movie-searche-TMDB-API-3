@@ -94,11 +94,10 @@ export const Film = (props: Props) => {
           <div className="flex items-center gap-3">
             {casts.map((cast, i) => (
               <div className="flex-shrink-0 w-[200px] mb-6" key={i}>
-                <Card
-                  imageSrc={tmdbImageSrc(cast.profilePath)}
-                  title={cast.characterName}
-                  key={i}
-                ></Card>
+                <Card imageSrc={tmdbImageSrc(cast.profilePath)} key={i}>
+                  <p className="font-semibold">{cast.name}</p>
+                  <p className="opacity-[0.9] text-sm">{cast.characterName}</p>
+                </Card>
               </div>
             ))}
           </div>
