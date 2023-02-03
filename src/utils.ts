@@ -40,8 +40,9 @@ export const tmdbImageSrc = (path: string) => {
   return `https://image.tmdb.org/t/p/original/${path}`
 }
 
-export const mergeFilm = (movies: Film[], tvs: Film[], limit = 6) => {
+export const mergeFilms = (movies: Film[], tvs: Film[], limit = 6) => {
   const arrs: Film[] = []
+
   for (let i = 0; i < limit; i++) {
     let film: unknown
 
@@ -54,11 +55,12 @@ export const mergeFilm = (movies: Film[], tvs: Film[], limit = 6) => {
         film = tvs[i - 1]
       }
     }
+
     if (isFilm(film)) arrs.push(film)
   }
+
   return arrs
 }
-
 export const youtubeThumbnail = (key: string) => {
   return `https://img.youtube.com/vi/${key}/mqdefault.jpg`
 }

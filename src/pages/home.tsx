@@ -1,68 +1,75 @@
-import { Section } from '../components/section'
-import { Slider } from '../components/slider/slider'
 import { useEffect, useState } from 'react'
-import { Film } from '../interfaces'
-import { TrendingHero } from '../components/trending-hero'
-import { Card } from '../components/card'
 import { useNavigate } from 'react-router-dom'
+
 import {
-  getInTheaser,
+  getInTheaters,
   getPopulars,
   getTopRated,
+  getTrailers,
   getTrendings,
 } from '../api/tmdb-api'
-import { isFilm, mergeFilm, tmdbImageSrc } from '../utils'
-// import { Film } from './film'
+import { Card } from '../components/card'
+import { Section } from '../components/section'
+import { Slider } from '../components/slider/slider'
+// import { TrailerModal } from '../components/trailer-modal'
+import { TrendingHero } from '../components/trending-hero'
+import { Film } from '../interfaces'
+import { mergeFilms, tmdbImageSrc } from '../utils'
 
+//
 export const Home = () => {
-  //
   const navigate = useNavigate()
 
   const [trendings, setTrendings] = useState<Film[]>([])
   const [inTheaters, setInTheaters] = useState<Film[]>([])
   const [populars, setPopulars] = useState<Film[]>([])
-  const [topRatedTV, setTopRatedTV] = useState<Film[]>([])
-  const [topRatedMovies, setTopRatedMovies] = useState<Film[]>([])
+  const [topRatedTv, setTopRatedTv] = useState<Film[]>([])
+  const [topRatedMovie, setTopRatedMovie] = useState<Film[]>([])
+
+  const [trailerSrc, setTrailerSrc] = useState('')
+
+  const playTrailer = async (film: Film) => {
+    const trailers = await getTrailers(film.mediaType, film.id)
+
+    setTrailerSrc(`https://www.youtube.com/embed/${trailers[0].key}?autoplay=0`)
+  }
 
   const goToDetailPage = (film: Film) => {
     navigate(`/${film.mediaType}/${film.id}`)
   }
-  const fetchTopRatedMovies = async () => {
-    setTopRatedMovies(await getTopRated('movie'))
+
+  const fetchTopRatedMovie = async () => {
+    setTopRatedMovie(await (await getTopRated('movie')).films)
   }
-  const fetchTopRatedTV = async () => {
-    setTopRatedTV(await getTopRated('tv'))
+
+  const fetchTopRatedTv = async () => {
+    setTopRatedTv(await (await getTopRated('tv')).films)
   }
 
   const fetchPopulars = async () => {
     const movies = await getPopulars('movie')
     const tvs = await getPopulars('tv')
 
-    const arrs: Film[] = []
-
-    setPopulars(mergeFilm(movies, tvs, 20))
+    setPopulars(mergeFilms(movies, tvs, 20))
   }
 
-  const fetchInTeaters = async () => {
-    setInTheaters(await getInTheaser())
+  const fetchInTheaters = async () => {
+    setInTheaters(await getInTheaters())
   }
 
   const fetchTrending = async () => {
     const movies = await getTrendings('movie')
     const tvs = await getTrendings('tv')
 
-    const arrs: Film[] = []
-
-    setTrendings(mergeFilm(movies, tvs))
+    setTrendings(mergeFilms(movies, tvs))
   }
 
   useEffect(() => {
-    // fetch()
     fetchTrending()
-    fetchInTeaters()
+    fetchInTheaters()
     fetchPopulars()
-    fetchTopRatedTV()
-    fetchTopRatedMovies()
+    fetchTopRatedTv()
+    fetchTopRatedMovie()
   }, [])
 
   return (
@@ -122,7 +129,7 @@ export const Home = () => {
       <Section title="Top Rated TV">
         <Slider isMovieCard={true} autoplay={true}>
           {(_) =>
-            topRatedTV.map((film, i) => (
+            topRatedTv.map((film, i) => (
               <Card
                 onClick={() => goToDetailPage(film)}
                 title={film.title}
@@ -137,7 +144,7 @@ export const Home = () => {
       <Section title="Top Rated Movies">
         <Slider isMovieCard={true} autoplay={true}>
           {(_) =>
-            topRatedMovies.map((film, i) => (
+            topRatedMovie.map((film, i) => (
               <Card
                 onClick={() => goToDetailPage(film)}
                 title={film.title}
