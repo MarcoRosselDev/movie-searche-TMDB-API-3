@@ -6,7 +6,12 @@ import { MediaType } from '../types'
 import { Cast, Trailer, Film as FilmInterface } from '../interfaces'
 import { Card } from '../components/card'
 import { Slider } from '../components/slider/slider'
-import { getCasts, getDetail, getTrailers } from '../api/tmdb-api'
+import {
+  getCasts,
+  getDetail,
+  getRecommendations,
+  getTrailers,
+} from '../api/tmdb-api'
 import { tmdbImageSrc, youtubeThumbnail } from '../utils'
 import { useGlobalContext } from '../components/app-container'
 import { Loading } from '../components/loading'
@@ -36,6 +41,7 @@ export const Film = (props: Props) => {
       setFilm(film)
       setCasts(await getCasts(film.mediaType, film.id))
       setTrailers(await getTrailers(film.mediaType, film.id))
+      setRecommendations(await getRecommendations(film.mediaType, film.id))
     }
   }
 
@@ -122,7 +128,12 @@ export const Film = (props: Props) => {
       </Section>
       {/* seasons */}
       <Section title="Seasons">
-        <Slider slidesToShow={2} slidesToScroll={2} swipe={false}>
+        <Slider
+          slidesToShow={2}
+          slidesToScroll={2}
+          swipe={false}
+          autoplay={true}
+        >
           {() =>
             film.seasons.map((season, i) => (
               <Card
@@ -141,8 +152,12 @@ export const Film = (props: Props) => {
       <Section title="Recommendations">
         <Slider isMovieCard={true} autoplay={true}>
           {(_) =>
-            recommendations.map((season, i) => (
-              <Card title={film.title} imageSrc="" key={i}></Card>
+            recommendations.map((film, i) => (
+              <Card
+                title={film.title}
+                imageSrc={tmdbImageSrc(film.posterPath)}
+                key={i}
+              ></Card>
             ))
           }
         </Slider>
