@@ -6,7 +6,7 @@ import { MediaType } from '../types'
 import { Cast, Trailer, Film as FilmInterface } from '../interfaces'
 import { Card } from '../components/card'
 import { Slider } from '../components/slider/slider'
-import { getDetail } from '../api/tmdb-api'
+import { getCasts, getDetail } from '../api/tmdb-api'
 import { tmdbImageSrc } from '../utils'
 import { useGlobalContext } from '../components/app-container'
 
@@ -29,8 +29,13 @@ export const Film = (props: Props) => {
 
   const fetch = async () => {
     // const film = await getDetail(props.mediaType, parseInt(id as string))
+    const film = await getDetail(props.mediaType, parseInt(id as string))
 
-    setFilm(await getDetail(props.mediaType, parseInt(id as string)))
+    if (film) {
+      setFilm(film)
+
+      setCasts(await getCasts(film.mediaType, film.id))
+    }
 
     const arrs: any[] = []
 
@@ -38,7 +43,6 @@ export const Film = (props: Props) => {
       arrs.push({})
     }
 
-    setCasts(arrs)
     setTrailers(arrs)
     setRecommendations(arrs)
   }
@@ -93,7 +97,7 @@ export const Film = (props: Props) => {
           <div className="flex items-center gap-3">
             {casts.map((cast, i) => (
               <div className="flex-shrink-0 w-[200px] mb-6" key={i}>
-                <Card imageSrc="" title="lorem ipsum" key={i}></Card>
+                <Card imageSrc="" title={cast.characterName} key={i}></Card>
               </div>
             ))}
           </div>
