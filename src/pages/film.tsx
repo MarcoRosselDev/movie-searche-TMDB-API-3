@@ -9,6 +9,7 @@ import { Slider } from '../components/slider/slider'
 import { getCasts, getDetail } from '../api/tmdb-api'
 import { tmdbImageSrc } from '../utils'
 import { useGlobalContext } from '../components/app-container'
+import { Loading } from '../components/loading'
 
 interface Props {
   mediaType: MediaType
@@ -51,10 +52,16 @@ export const Film = (props: Props) => {
     fetch()
   }, [])
 
-  if (!film) {
-    return <div>404</div>
+  if (film === null) {
+    // redirect to 404 page
+    return <></>
+  } else if (film === undefined) {
+    return (
+      <div className="text-center p-6 h-full flex-1">
+        <Loading></Loading>
+      </div>
+    )
   }
-
   return (
     <>
       {/* background */}
@@ -86,18 +93,21 @@ export const Film = (props: Props) => {
               </li>
             ))}
           </ul>
-          <p className="text-xl line-clamp-3 opacity-[0.5]">
-            {film.description}
-          </p>
+          <p className="line-clamp-3 opacity-[0.9]">{film.description}</p>
         </div>
       </Section>
       {/* cast */}
+
       <Section title="Casts">
         <div className="scrollbar scrollbar-thumb-primary scrollbar-track-header">
           <div className="flex items-center gap-3">
             {casts.map((cast, i) => (
               <div className="flex-shrink-0 w-[200px] mb-6" key={i}>
-                <Card imageSrc="" title={cast.characterName} key={i}></Card>
+                <Card
+                  imageSrc={tmdbImageSrc(cast.profilePath)}
+                  title={cast.characterName}
+                  key={i}
+                ></Card>
               </div>
             ))}
           </div>
