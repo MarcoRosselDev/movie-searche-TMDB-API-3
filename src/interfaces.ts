@@ -18,12 +18,12 @@ export interface Episode {
 
 export interface Season {
   id: number
-  // filmName: string
+  filmName: string
   name: string
   seasonNumber: number
   posterPath: string
-  //   episodes: Episode[]
-  //   airDate: string
+  episodes: Episode[]
+  airDate: string
 }
 
 export interface Film {

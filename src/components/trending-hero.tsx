@@ -15,13 +15,16 @@ export const TrendingHero = (props: Props) => {
 
   return (
     <div
-      onClick={() => props.onClick()}
       className="h-[300px] relative flex items-center cursor-pointer"
+      onClick={() => props.onClick()}
     >
       {/* bg image */}
       <div className="absolute left-0 top-0 right-0 bottom-0">
         <div className="overlay-slick-hero"></div>
-        <Image src={tmdbImageSrc(props.film.coverPath)}></Image>
+        <Image
+          src={tmdbImageSrc(props.film.coverPath)}
+          className="rounded-0 rounded-none"
+        ></Image>
         <div className="overlay-film-cover"></div>
       </div>
       {/* text */}

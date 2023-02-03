@@ -51,6 +51,7 @@ export const Season = () => {
       {/* background */}
       <div className="h-[150px] left-0 right-0 top-0 relative">
         <div className="overlay-film-cover"></div>
+        <Image className="rounded-0 rounded-none" src=""></Image>
       </div>
       {/* poster and text */}
       <Section className="-mt-[75px] flex items-center relative z-10 mobile:block">
