@@ -4,7 +4,7 @@ import { getSeason } from '../api/tmdb-api'
 import { Image } from '../components/image'
 import { Section } from '../components/section'
 import { Film, Season as SeasonInterface } from '../interfaces'
-import { tmdbImageSrc } from '../utils'
+import { formatDate, tmdbImageSrc } from '../utils'
 
 export const Season = () => {
   //
@@ -47,7 +47,7 @@ export const Season = () => {
         <div className="px-3 flex flex-col items-start gap-3">
           <p className="text-xl line-clamp-1">{season.filmName}</p>
           <p className="line-clamp-3 opacity-[0.9]">
-            Season 1 | {season.name} episodes
+            {season.name} - {season.episodes?.length} episodes
           </p>
         </div>
       </Section>
@@ -63,9 +63,13 @@ export const Season = () => {
               className="min-w-[300px] w-[300px] h-[150px]"
             ></Image>
             <div className="overflow-hidden flex flex-col gap-3 mobile:py-3">
-              <p className="text-lg truncate">{episodes.title}</p>
+              <p className="text-lg truncate">
+                {episodes.episodeNumber}. {episodes.title}
+              </p>
               <p className="opacity-[0.9] line-clamp-5">{episodes.overview}</p>
-              <div className="mt-auto pt-3 text-right"></div>
+              <div className="mt-auto pt-3 text-right">
+                {formatDate(episodes.airDate)}
+              </div>
             </div>
           </div>
         ))}

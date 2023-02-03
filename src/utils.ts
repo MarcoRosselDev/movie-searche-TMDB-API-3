@@ -62,3 +62,9 @@ export const mergeFilm = (movies: Film[], tvs: Film[], limit = 6) => {
 export const youtubeThumbnail = (key: string) => {
   return `https://img.youtube.com/vi/${key}/mqdefault.jpg`
 }
+
+export const formatDate = (val: string) => {
+  const d = new Date(val)
+
+  return d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear()
+}
