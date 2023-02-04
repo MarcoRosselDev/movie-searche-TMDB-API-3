@@ -16,7 +16,6 @@ import { TrendingHero } from '../components/trending-hero'
 import { Film } from '../interfaces'
 import { mergeFilms, tmdbImageSrc } from '../utils'
 
-//
 export const Home = () => {
   const navigate = useNavigate()
 

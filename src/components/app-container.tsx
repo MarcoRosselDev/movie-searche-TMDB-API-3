@@ -1,14 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
-//layout
-import { Header } from '../leyouts/Header'
-import { Body } from '../leyouts/Body'
-import { Footer } from '../leyouts/Footer'
+import { getGenres } from '../api/tmdb-api'
 import { Genre } from '../interfaces'
+import { Body } from '../layouts/Body'
+import { Footer } from '../layouts/Footer'
+import { Header } from '../layouts/Header'
 import { MediaType } from '../types'
 import { Loading } from './loading'
-import { getGenres } from '../api/tmdb-api'
 
 type Genres = {
   [key in MediaType]: Genre[]
@@ -45,7 +44,7 @@ export const AppContainer = () => {
     fetchGenres()
   }, [])
 
-  if (!genres.movie.length || !genres.movie.length) {
+  if (!genres.movie.length || !genres.tv.length) {
     return (
       <div className="fixed left-0 top-0 right-0 bottom-0 flex items-center justify-center">
         <Loading></Loading>
@@ -55,16 +54,18 @@ export const AppContainer = () => {
 
   return (
     <BrowserRouter>
-      <div className="pb-[64px]">
-        <GlobalContext.Provider value={{ genres }}>
-          {/* header */}
-          <Header />
-          {/* body */}
-          <Body />
-          {/* footer */}
-          <Footer />
-        </GlobalContext.Provider>
-      </div>
+      <GlobalContext.Provider
+        value={{
+          genres,
+        }}
+      >
+        {/* header */}
+        <Header />
+        {/* body */}
+        <Body />
+        {/* footer */}
+        <Footer />
+      </GlobalContext.Provider>
     </BrowserRouter>
   )
 }
