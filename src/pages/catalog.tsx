@@ -78,10 +78,29 @@ export const Catalog = (props: Props) => {
     setFilms((arrs) => [...arrs, ...films])
   }
 
+  const onWindowScroll = () => {
+    if (loadingRef.current) return
+
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+      if (totalPage.current > page.current) {
+        page.current++
+        fetch()
+      }
+    }
+  }
+
   useEffect(() => {
     setFilms([])
     fetch()
   }, [location])
+
+  useEffect(() => {
+    window.addEventListener('scroll', onWindowScroll)
+
+    return () => {
+      window.removeEventListener('scroll', onWindowScroll)
+    }
+  }, [])
 
   return (
     <>
