@@ -126,7 +126,10 @@ export const Home = () => {
         </Slider>
       </Section>
       {/* top rated tv */}
-      <Section title="Top Rated TV">
+      <Section
+        title="Top Rated TV"
+        onTitleClick={() => navigate(`/list/top-rated-tv`)}
+      >
         <Slider isMovieCard={true} autoplay={true}>
           {(_) =>
             topRatedTv.map((film, i) => (
@@ -141,7 +144,10 @@ export const Home = () => {
         </Slider>
       </Section>
       {/* to rated movies */}
-      <Section title="Top Rated Movies">
+      <Section
+        title="Top Rated Movies"
+        onTitleClick={() => navigate(`/list/top-rated-movies`)}
+      >
         <Slider isMovieCard={true} autoplay={true}>
           {(_) =>
             topRatedMovie.map((film, i) => (
