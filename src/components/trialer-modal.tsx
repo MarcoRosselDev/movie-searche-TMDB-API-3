@@ -1,8 +1,15 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Container } from './container'
 
-export const TrialetModal = () => {
+interface Props {
+  src: string | null
+}
+
+export const TrialetModal = (props: Props) => {
   const [show, setShow] = useState(false)
+  useEffect(() => {
+    if (props.src) setShow(true)
+  }, [props.src])
   return (
     <div
       onClick={() => setShow(false)}
@@ -22,7 +29,15 @@ export const TrialetModal = () => {
       "
     >
       <Container className="bg-header rounded-sm my-12">
-        <div onClick={(e) => e.stopPropagation()}></div>
+        <div onClick={(e) => e.stopPropagation()}>
+          <div className="p-3 text-right">
+            <button onClick={() => setShow(false)}>{/* icons last */}</button>
+          </div>
+          <iframe
+            src={props.src as string}
+            className="w-[500px] h-[500px]"
+          ></iframe>
+        </div>
       </Container>
     </div>
   )
