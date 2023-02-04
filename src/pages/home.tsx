@@ -11,7 +11,7 @@ import {
 import { Card } from '../components/card'
 import { Section } from '../components/section'
 import { Slider } from '../components/slider/slider'
-// import { TrailerModal } from '../components/trailer-modal'
+import { TrailerModal } from '../components/trailer-modal'
 import { TrendingHero } from '../components/trending-hero'
 import { Film } from '../interfaces'
 import { mergeFilms, tmdbImageSrc } from '../utils'
@@ -74,6 +74,8 @@ export const Home = () => {
 
   return (
     <>
+      <TrailerModal src={trailerSrc}></TrailerModal>
+
       {/* trendings */}
       <Section className="py-0">
         <Slider

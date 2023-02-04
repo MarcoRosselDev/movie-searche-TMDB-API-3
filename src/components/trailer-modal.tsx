@@ -5,7 +5,7 @@ interface Props {
   src: string | null
 }
 
-export const TrialetModal = (props: Props) => {
+export const TrailerModal = (props: Props) => {
   const [show, setShow] = useState(false)
   useEffect(() => {
     if (props.src) setShow(true)
@@ -14,8 +14,8 @@ export const TrialetModal = (props: Props) => {
     <div
       onClick={() => setShow(false)}
       className="
-      hidden
       fixed 
+      z-[1080]
       top-0 
       bottom-0
       left-0 
