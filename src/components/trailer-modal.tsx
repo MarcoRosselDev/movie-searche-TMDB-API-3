@@ -1,21 +1,37 @@
 import { useEffect, useState } from 'react'
-import { Container } from './container'
-
 import { IoIosClose } from 'react-icons/io'
+
+import { Container } from './container'
 
 interface Props {
   src: string | null
+  onHide: () => void
 }
 
 export const TrailerModal = (props: Props) => {
   const [show, setShow] = useState(false)
+
+  const hide = () => {
+    setShow(false)
+    props.onHide()
+  }
+
   useEffect(() => {
     if (props.src) setShow(true)
   }, [props.src])
+
   return (
     <div
-      onClick={() => setShow(false)}
-      className="
+      onClick={() => hide()}
+      className={`
+            ${
+              show
+                ? `
+              opacity-[1]
+            `
+                : 'opacity-0 pointer-events-none'
+            }
+            ease-in-out
             duration-300
             fixed
             z-[1080] 
@@ -31,26 +47,47 @@ export const TrailerModal = (props: Props) => {
             after:right-0
             after:bg-black
             after:opacity-[0.9]
-      "
+        `}
     >
       <Container
-        className="
+        className={`
           relative 
           z-10
           transition-[margin,opacity]
           ease-in-out
-          duration-300"
+          duration-300
+          ${
+            show
+              ? `
+                mt-0
+                opacity-[1]
+              `
+              : `
+                -mt-[200px]
+                opacity-0
+              `
+          }
+        `}
       >
-        <div onClick={(e) => e.stopPropagation()}>
+        <div
+          className="bg-header rounded-lg"
+          onClick={(e) => {
+            e.stopPropagation()
+          }}
+        >
           <div className="p-3 text-right">
-            <button onClick={() => setShow(false)}>
+            <button onClick={() => hide()}>
               <IoIosClose size={18}></IoIosClose>
             </button>
           </div>
-          <iframe
-            src={props.src as string}
-            className="w-[500px] h-[500px]"
-          ></iframe>
+          {show ? (
+            <iframe
+              src={props.src as string}
+              className="w-full h-[500px]"
+            ></iframe>
+          ) : (
+            ''
+          )}
         </div>
       </Container>
     </div>

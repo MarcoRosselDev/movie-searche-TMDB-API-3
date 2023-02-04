@@ -74,10 +74,12 @@ export const Home = () => {
 
   return (
     <>
-      <TrailerModal src={trailerSrc}></TrailerModal>
-
+      <TrailerModal
+        onHide={() => setTrailerSrc('')}
+        src={trailerSrc}
+      ></TrailerModal>
       {/* trendings */}
-      <Section className="py-0">
+      <Section className="py-0" hidden={trendings.length === 0}>
         <Slider
           className="slick-hero"
           autoplay={true}
@@ -87,6 +89,7 @@ export const Home = () => {
           {(onSwipe) =>
             trendings.map((film, i) => (
               <TrendingHero
+                onPlayTrailer={() => playTrailer(film)}
                 onClick={() =>
                   !onSwipe ? navigate(`/${film.mediaType}/${film.id}`) : ''
                 }
@@ -98,8 +101,8 @@ export const Home = () => {
         </Slider>
       </Section>
       {/* in theaters */}
-      <Section title="In Theaters">
-        <Slider isMovieCard={true} autoplay={true}>
+      <Section title="In Theaters" hidden={inTheaters.length === 0}>
+        <Slider isMovieCard={true}>
           {(_) =>
             inTheaters.map((film, i) => (
               <Card
@@ -113,8 +116,8 @@ export const Home = () => {
         </Slider>
       </Section>
       {/* populars */}
-      <Section title="What's Popular">
-        <Slider isMovieCard={true} autoplay={true}>
+      <Section title="What's Popular" hidden={populars.length === 0}>
+        <Slider isMovieCard={true}>
           {(_) =>
             populars.map((film, i) => (
               <Card
@@ -130,9 +133,10 @@ export const Home = () => {
       {/* top rated tv */}
       <Section
         title="Top Rated TV"
+        hidden={topRatedTv.length === 0}
         onTitleClick={() => navigate(`/list/top-rated-tv`)}
       >
-        <Slider isMovieCard={true} autoplay={true}>
+        <Slider isMovieCard={true}>
           {(_) =>
             topRatedTv.map((film, i) => (
               <Card
@@ -145,12 +149,13 @@ export const Home = () => {
           }
         </Slider>
       </Section>
-      {/* to rated movies */}
+      {/* to rated movies*/}
       <Section
+        hidden={topRatedMovie.length === 0}
         title="Top Rated Movies"
         onTitleClick={() => navigate(`/list/top-rated-movies`)}
       >
-        <Slider isMovieCard={true} autoplay={true}>
+        <Slider isMovieCard={true}>
           {(_) =>
             topRatedMovie.map((film, i) => (
               <Card
