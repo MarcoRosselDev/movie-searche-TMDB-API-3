@@ -83,6 +83,7 @@ export const Catalog = (props: Props) => {
 
     if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
       if (totalPage.current > page.current) {
+        loadingRef.current = true
         page.current++
         fetch()
       }
