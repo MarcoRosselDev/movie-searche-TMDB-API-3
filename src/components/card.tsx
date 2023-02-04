@@ -17,10 +17,9 @@ export const Card = (props: Props) => {
         props.className
       )}
     >
-      <Image
-        src={props.imageSrc}
-        className="min-h-[240px] h-[200px] rounded-lg"
-      ></Image>
+      <div>
+        <Image src={props.imageSrc}></Image>
+      </div>
       <p className="py-1.5 line-clamp-2">{props.title}</p>
       {props.children}
     </div>
