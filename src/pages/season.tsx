@@ -8,7 +8,6 @@ import { Season as SeasonInterface } from '../interfaces'
 import { formatDate, tmdbImageSrc } from '../utils'
 
 export const Season = () => {
-  //
   const [season, setSeason] = useState<SeasonInterface | null>(null)
 
   const params = useParams<any>()
@@ -29,6 +28,7 @@ export const Season = () => {
   if (!season) {
     return <></>
   }
+
   return (
     <>
       {/* background */}

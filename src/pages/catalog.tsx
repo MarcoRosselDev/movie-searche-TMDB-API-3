@@ -23,7 +23,7 @@ export const Catalog = (props: Props) => {
     totalPages: number
     films: Film[]
   }>
-  //
+
   const [films, setFilms] = useState<Film[]>([])
   const [params, _] = useSearchParams()
   const page = useRef(1)
@@ -34,7 +34,6 @@ export const Catalog = (props: Props) => {
   const navigate = useNavigate()
   const { listTitle } = useParams<any>()
 
-  //
   switch (props.type) {
     case 'movie':
       title = 'Movies'
@@ -83,7 +82,6 @@ export const Catalog = (props: Props) => {
 
     if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
       if (totalPage.current > page.current) {
-        loadingRef.current = true
         page.current++
         fetch()
       }

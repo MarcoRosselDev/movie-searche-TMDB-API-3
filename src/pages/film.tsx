@@ -1,32 +1,38 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { Image } from '../components/image'
-import { Section } from '../components/section'
-import { MediaType } from '../types'
-import { Cast, Trailer, Film as FilmInterface } from '../interfaces'
-import { Card } from '../components/card'
-import { Slider } from '../components/slider/slider'
+
 import {
   getCasts,
   getDetail,
   getRecommendations,
   getTrailers,
 } from '../api/tmdb-api'
-import { tmdbImageSrc, youtubeThumbnail } from '../utils'
 import { useGlobalContext } from '../components/app-container'
+import { Card } from '../components/card'
+import { Image } from '../components/image'
 import { Loading } from '../components/loading'
+import { Section } from '../components/section'
+import { Slider } from '../components/slider/slider'
+import { TrailerModal } from '../components/trailer-modal'
+import { Cast, Film as FilmInterface, Trailer } from '../interfaces'
+import { MediaType } from '../types'
+import { tmdbImageSrc, youtubeThumbnail } from '../utils'
 
 interface Props {
   mediaType: MediaType
 }
 
 export const Film = (props: Props) => {
-  //
   const location = useLocation()
   const navigate = useNavigate()
   const { id } = useParams<any>()
-  //
+
   const [film, setFilm] = useState<FilmInterface | null | undefined>(null)
+  const [trailerSrc, setTrailerSrc] = useState('')
+
+  const playTrailer = async (key: string) => {
+    setTrailerSrc(`https://www.youtube.com/embed/${key}?autoplay=1`)
+  }
 
   const [casts, setCasts] = useState<Cast[]>([])
   const [trailers, setTrailers] = useState<Trailer[]>([])
@@ -52,7 +58,7 @@ export const Film = (props: Props) => {
 
   if (film === null) {
     // redirect to 404 page
-    return <>404</>
+    return <></>
   } else if (film === undefined) {
     return (
       <div className="text-center p-6 h-full flex-1">
@@ -60,8 +66,14 @@ export const Film = (props: Props) => {
       </div>
     )
   }
+
   return (
     <>
+      <TrailerModal
+        onHide={() => setTrailerSrc('')}
+        src={trailerSrc}
+      ></TrailerModal>
+
       {/* background */}
       <div className="h-[300px] left-0 right-0 top-0 relative">
         <div className="overlay-film-cover"></div>
@@ -95,13 +107,15 @@ export const Film = (props: Props) => {
         </div>
       </Section>
       {/* cast */}
-
-      <Section title="Casts">
+      <Section title="Casts" hidden={casts.length === 0}>
         <div className="scrollbar scrollbar-thumb-primary scrollbar-track-header">
           <div className="flex items-center gap-3">
             {casts.map((cast, i) => (
               <div className="flex-shrink-0 w-[200px] mb-6" key={i}>
-                <Card imageSrc={tmdbImageSrc(cast.profilePath)} key={i}>
+                <Card
+                  withPlay={false}
+                  imageSrc={tmdbImageSrc(cast.profilePath)}
+                >
                   <p className="font-semibold">{cast.name}</p>
                   <p className="opacity-[0.9] text-sm">{cast.characterName}</p>
                 </Card>
@@ -111,29 +125,28 @@ export const Film = (props: Props) => {
         </div>
       </Section>
       {/* trailers */}
-      <Section title="Trailers">
+      <Section title="Trailers" hidden={trailers.length === 0}>
         <div className="scrollbar scrollbar-thumb-primary scrollbar-track-header">
           <div className="flex items-center gap-3 h-[300px]">
             {trailers.map((trailer, i) => (
-              <div className="flex-shrink-0 w-[300px] my-3">
-                <Card
-                  imageSrc={youtubeThumbnail(trailer.key)}
-                  title="lorem ipsum"
-                  key={i}
-                ></Card>
-              </div>
+              <Card
+                onClick={() => playTrailer(trailer.key)}
+                imageSrc={youtubeThumbnail(trailer.key)}
+                className="flex-shrink-0"
+                key={i}
+              ></Card>
             ))}
           </div>
         </div>
       </Section>
       {/* seasons */}
-      <Section title="Seasons">
+      <Section title="Seasons" hidden={film.seasons.length === 0}>
         <Slider
           slidesToShow={film.seasons.length > 2 ? 2 : 1}
           slidesToScroll={film.seasons.length > 2 ? 2 : 1}
           swipe={false}
         >
-          {() =>
+          {(_) =>
             film.seasons.map((season, i) => (
               <Card
                 className="h-[300px]"
@@ -149,8 +162,8 @@ export const Film = (props: Props) => {
         </Slider>
       </Section>
       {/* recommendations */}
-      <Section title="Recommendations">
-        <Slider isMovieCard={true} autoplay={true}>
+      <Section title="Recommendations" hidden={recommendations.length === 0}>
+        <Slider isMovieCard={true}>
           {(_) =>
             recommendations.map((film, i) => (
               <Card
