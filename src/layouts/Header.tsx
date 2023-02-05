@@ -6,15 +6,17 @@ import {
   useNavigate,
   useSearchParams,
 } from 'react-router-dom'
+
 import { Container } from '../components/container'
-import { mergeClassName } from '../utils'
-//
 import { SearchResult } from '../components/search-result'
+import { mergeClassName } from '../utils'
 
 const MENU_CLASS = `
-  p-1.5
+  py-1
+  px-1.5
   hover:bg-primary
   rounded-md
+  mobile:px-6
 `
 
 const MENU_CLASS_ACTIVE = `
@@ -22,29 +24,27 @@ const MENU_CLASS_ACTIVE = `
 `
 
 export const Header = () => {
-  //
   const location = useLocation()
   const [params, _] = useSearchParams()
   const navigate = useNavigate()
-  //
+
   const [pathname, setPathname] = useState('')
   const pathnameRef = useRef('')
   const defaultKeyword = useRef('')
 
-  //
   const [keyword, setKeyword] = useState('')
-  const [isSearchFocus, setIsSearchFocus] = useState(false)
+  const [isSearchFocus, setSearchFocus] = useState(false)
   const searchRef = useRef<HTMLInputElement>(null)
-  //
+
   const goToSearchPage = () => {
     if (keyword) {
       defaultKeyword.current = keyword
       navigate(`/search?q=${keyword}`)
-      setIsSearchFocus(false)
+      setSearchFocus(false)
       searchRef.current?.blur()
     }
   }
-  //
+
   const initKeyword = () => {
     if (pathnameRef.current === '/search') {
       setKeyword(defaultKeyword.current)
@@ -52,12 +52,12 @@ export const Header = () => {
       setKeyword('')
     }
   }
-  //
+
   const onWindowClick = () => {
-    setIsSearchFocus(false)
+    setSearchFocus(false)
     initKeyword()
   }
-  //
+
   const getMenuClass = (path: string) => {
     if (path === pathname) {
       return mergeClassName(MENU_CLASS, MENU_CLASS_ACTIVE)
@@ -132,7 +132,7 @@ export const Header = () => {
           <input
             onClick={(e) => {
               e.stopPropagation()
-              setIsSearchFocus(true)
+              setSearchFocus(true)
             }}
             onKeyDown={(e) => (e.key === 'Enter' ? goToSearchPage() : '')}
             onInput={(e) => setKeyword(e.currentTarget.value)}
